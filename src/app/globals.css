@@ -1,26 +1,86 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  /* Surface hierarchy */
+  --color-surface: #faf9f7;
+  --color-surface-dim: #d6dbd7;
+  --color-surface-bright: #faf9f7;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f3f4f1;
+  --color-surface-container: #edeeeb;
+  --color-surface-container-high: #e6e9e6;
+  --color-surface-container-highest: #e0e3e0;
+  --color-surface-variant: #e0e3e0;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* On-surface */
+  --color-on-surface: #2f3331;
+  --color-on-surface-variant: #5c605d;
+  --color-on-background: #2f3331;
+
+  /* Primary */
+  --color-primary: #5f5e5e;
+  --color-primary-dim: #535252;
+  --color-primary-container: #e5e2e1;
+  --color-primary-fixed: #e5e2e1;
+  --color-primary-fixed-dim: #d6d4d3;
+  --color-on-primary: #faf7f6;
+  --color-on-primary-container: #525151;
+  --color-on-primary-fixed: #403f3f;
+  --color-on-primary-fixed-variant: #5c5b5b;
+
+  /* Secondary */
+  --color-secondary: #675e50;
+  --color-secondary-dim: #5b5244;
+  --color-secondary-container: #eee0cf;
+  --color-secondary-fixed: #eee0cf;
+  --color-secondary-fixed-dim: #e0d2c1;
+  --color-on-secondary: #fff8f2;
+  --color-on-secondary-container: #595043;
+  --color-on-secondary-fixed: #463e32;
+  --color-on-secondary-fixed-variant: #645a4c;
+
+  /* Tertiary */
+  --color-tertiary: #635e57;
+  --color-tertiary-dim: #57534c;
+  --color-tertiary-container: #faf3e9;
+  --color-tertiary-fixed: #faf3e9;
+  --color-tertiary-fixed-dim: #ebe4db;
+  --color-on-tertiary: #fff8ef;
+  --color-on-tertiary-container: #5f5b54;
+  --color-on-tertiary-fixed: #4d4943;
+  --color-on-tertiary-fixed-variant: #6a665e;
+
+  /* Error */
+  --color-error: #9f403d;
+  --color-error-dim: #4e0309;
+  --color-error-container: #fe8983;
+  --color-on-error: #fff7f6;
+  --color-on-error-container: #752121;
+
+  /* Outline */
+  --color-outline: #777c79;
+  --color-outline-variant: #afb3b0;
+
+  /* Inverse */
+  --color-inverse-surface: #0d0e0e;
+  --color-inverse-on-surface: #9d9d9b;
+  --color-inverse-primary: #ffffff;
+
+  /* Surface tint */
+  --color-surface-tint: #5f5e5e;
+
+  /* Fonts */
+  --font-headline: "Newsreader", serif;
+  --font-body: "Manrope", sans-serif;
+  --font-label: "Manrope", sans-serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body);
+  background-color: var(--color-surface);
+  color: var(--color-on-surface);
+}
+
+html {
+  scroll-behavior: smooth;
 }
