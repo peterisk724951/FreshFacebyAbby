@@ -71,17 +71,15 @@ const services = [
   },
 ];
 
-const addons = [
-  {
-    name: "LED Light Therapy Add-On",
-    price: "+$25",
-    description: "Boost collagen production and reduce inflammation.",
-  },
-  {
-    name: "Chemical Peel Upgrade",
-    price: "+$35",
-    description: "Professional-grade peel for deeper exfoliation and glow.",
-  },
+const customizedAddons = [
+  { name: "Base Facial", price: "$100", tier: "base" },
+  { name: "Add-on Microdermabrasion", price: "+$15", tier: "single" },
+  { name: "Add-on LED Light Therapy", price: "+$15", tier: "single" },
+  { name: "Add-on Enzyme Mask", price: "+$15", tier: "single" },
+  { name: "Add-on Microderm + LED", price: "+$30", tier: "double" },
+  { name: "Add-on Microderm + Enzyme", price: "+$30", tier: "double" },
+  { name: "Add-on LED + Enzyme", price: "+$30", tier: "double" },
+  { name: "Add-on Microderm + LED + Enzyme", price: "+$45", tier: "triple" },
 ];
 
 export default function BookPage() {
@@ -236,33 +234,49 @@ function BookContent() {
                 ))}
               </div>
 
-              {/* Add-ons */}
-              <div className="mt-12">
-                <h2 className="font-headline text-2xl font-light tracking-tighter mb-6">
-                  Enhance Your Treatment
-                </h2>
-                <div className="flex flex-col gap-px bg-outline-variant/20">
-                  {addons.map((addon) => (
-                    <div
-                      key={addon.name}
-                      className="bg-surface-container-low p-6 hover:bg-surface-container transition-colors duration-300"
-                    >
-                      <div className="flex justify-between items-start mb-2">
-                        <h4 className="font-headline text-lg">{addon.name}</h4>
-                        <span className="font-headline text-base italic text-primary">
+              {/* Add-ons — only for Customized Facial */}
+              {selected === "customized-facial" && (
+                <div className="mt-12">
+                  <h2 className="font-headline text-2xl font-light tracking-tighter mb-6">
+                    Customize Your Facial
+                  </h2>
+                  <p className="font-body text-sm text-on-surface-variant font-light mb-6">
+                    Select your preferred option when booking. Pricing varies by
+                    add-ons selected.
+                  </p>
+                  <div className="flex flex-col gap-px bg-outline-variant/20">
+                    {customizedAddons.map((addon) => (
+                      <div
+                        key={addon.name}
+                        className={`p-5 flex justify-between items-center transition-colors duration-300 ${
+                          addon.tier === "base"
+                            ? "bg-inverse-surface text-surface"
+                            : "bg-surface-container-low hover:bg-surface-container"
+                        }`}
+                      >
+                        <span
+                          className={`font-body text-sm ${
+                            addon.tier === "base"
+                              ? "font-medium text-surface"
+                              : "font-light text-on-surface"
+                          }`}
+                        >
+                          {addon.name}
+                        </span>
+                        <span
+                          className={`font-headline text-base italic ${
+                            addon.tier === "base"
+                              ? "text-surface"
+                              : "text-primary"
+                          }`}
+                        >
                           {addon.price}
                         </span>
                       </div>
-                      <p className="font-body text-sm text-on-surface-variant font-light leading-relaxed">
-                        {addon.description}
-                      </p>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-                <p className="font-body text-xs text-on-surface-variant font-light mt-3">
-                  Mention add-ons when booking or at your appointment.
-                </p>
-              </div>
+              )}
             </div>
 
             {/* Desktop calendar — sticky on the right */}
