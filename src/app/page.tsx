@@ -171,14 +171,23 @@ export default function Home() {
               Abby
             </h2>
             <p className="font-body text-xl leading-relaxed font-extralight text-surface-dim max-w-lg">
-              I created this space to offer more than just facials &mdash; I
+              Hi! I&apos;m Abby, the esthetician behind Fresh Face by Abby. I
+              created this space to offer more than just facials &mdash; I
               want each treatment to feel like a calming reset for both your
               skin and your spirit.
             </p>
             <p className="font-body text-lg leading-relaxed font-extralight text-surface-dim/70 max-w-lg mt-6">
               My goal is to help you feel confident in your skin using
               customized treatments, results-driven products, and a gentle,
-              relaxing approach.
+              relaxing approach. Whether you&apos;re struggling with
+              breakouts, dullness, or just need a moment of peace, I&apos;m
+              here to support your skin journey in a way that feels intentional
+              and personal.
+            </p>
+            <p className="font-body text-lg leading-relaxed font-extralight text-surface-dim/70 max-w-lg mt-6">
+              Every treatment is fully personalized based on your individual
+              needs. You&apos;ll leave with aftercare advice to maintain your
+              results at home &mdash; and a refreshed, glowing complexion.
             </p>
             <div className="mt-12 h-px bg-surface/20 w-32"></div>
           </div>
