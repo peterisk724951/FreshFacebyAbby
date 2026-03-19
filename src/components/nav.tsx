@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -12,6 +13,7 @@ const links = [
 
 export function Nav() {
   const pathname = usePathname();
+  const [open, setOpen] = useState(false);
 
   return (
     <>
@@ -55,10 +57,70 @@ export function Nav() {
           </div>
           <Link
             href="/contact"
-            className="bg-on-surface text-surface px-8 py-3 text-sm uppercase tracking-widest hover:bg-primary transition-colors duration-300 active:scale-95"
+            className="hidden md:block bg-on-surface text-surface px-8 py-3 text-sm uppercase tracking-widest hover:bg-primary transition-colors duration-300 active:scale-95"
           >
             Book Now
           </Link>
+
+          {/* Mobile hamburger */}
+          <button
+            onClick={() => setOpen(!open)}
+            className="md:hidden flex flex-col justify-center gap-1.5 w-8 h-8"
+            aria-label="Toggle menu"
+          >
+            <span
+              className={`block h-px w-full bg-on-surface transition-all duration-300 ${
+                open ? "rotate-45 translate-y-[3.5px]" : ""
+              }`}
+            />
+            <span
+              className={`block h-px w-full bg-on-surface transition-all duration-300 ${
+                open ? "opacity-0" : ""
+              }`}
+            />
+            <span
+              className={`block h-px w-full bg-on-surface transition-all duration-300 ${
+                open ? "-rotate-45 -translate-y-[3.5px]" : ""
+              }`}
+            />
+          </button>
+        </div>
+
+        {/* Mobile menu overlay */}
+        <div
+          className={`md:hidden overflow-hidden transition-all duration-300 ${
+            open ? "max-h-96" : "max-h-0"
+          }`}
+        >
+          <div className="flex flex-col gap-6 px-8 pb-8 pt-2">
+            {links.map((link) => {
+              const isActive =
+                link.href === "/"
+                  ? pathname === "/"
+                  : pathname.startsWith(link.href.replace("/#", "/"));
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  className={`font-headline italic text-2xl tracking-tight transition-colors ${
+                    isActive
+                      ? "text-on-surface font-medium"
+                      : "text-outline hover:text-on-surface"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+            <Link
+              href="/contact"
+              onClick={() => setOpen(false)}
+              className="bg-on-surface text-surface px-8 py-4 text-sm uppercase tracking-widest hover:bg-primary transition-colors duration-300 text-center mt-2"
+            >
+              Book Now
+            </Link>
+          </div>
         </div>
       </nav>
     </>
