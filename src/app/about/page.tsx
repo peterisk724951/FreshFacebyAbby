@@ -13,13 +13,13 @@ export default function AboutPage() {
       <section className="py-32 px-8 md:px-24 bg-surface">
         <div className="max-w-screen-2xl mx-auto grid grid-cols-12 gap-6">
           <div className="col-span-12 md:col-span-5">
-            <div className="aspect-[4/5] overflow-hidden">
+            <div className="aspect-[3/2] overflow-hidden">
               <Image
                 alt="Abby - Esthetician and founder of Fresh Face by Abby"
-                className="w-full h-full object-cover grayscale brightness-110 hover:grayscale-0 transition-all duration-700"
+                className="w-full h-full object-contain"
                 src="/abby.webp"
-                width={600}
-                height={400}
+                width={900}
+                height={600}
               />
             </div>
           </div>

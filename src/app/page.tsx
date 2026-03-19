@@ -171,13 +171,14 @@ export default function Home() {
               Abby
             </h2>
             <p className="font-body text-xl leading-relaxed font-extralight text-surface-dim max-w-lg">
-              Abby curates every treatment using professional-grade products
-              and targeted techniques for your perfect skin reset.
+              I created this space to offer more than just facials &mdash; I
+              want each treatment to feel like a calming reset for both your
+              skin and your spirit.
             </p>
             <p className="font-body text-lg leading-relaxed font-extralight text-surface-dim/70 max-w-lg mt-6">
-              With an eye for detail and a passion for holistic skin health,
-              she combines science-backed methods with an editorial eye for
-              beauty.
+              My goal is to help you feel confident in your skin using
+              customized treatments, results-driven products, and a gentle,
+              relaxing approach.
             </p>
             <div className="mt-12 h-px bg-surface/20 w-32"></div>
           </div>
