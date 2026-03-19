@@ -1,7 +1,8 @@
 "use client";
 
 import Cal, { getCalApi } from "@calcom/embed-react";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 const services = [
   {
@@ -84,7 +85,18 @@ const addons = [
 ];
 
 export default function BookPage() {
-  const [selected, setSelected] = useState<string | null>(null);
+  return (
+    <Suspense>
+      <BookContent />
+    </Suspense>
+  );
+}
+
+function BookContent() {
+  const searchParams = useSearchParams();
+  const [selected, setSelected] = useState<string | null>(
+    searchParams.get("service")
+  );
 
   useEffect(() => {
     (async () => {

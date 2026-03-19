@@ -63,7 +63,7 @@ export default function Home() {
               </h2>
             </div>
             <a
-              href="#"
+              href="/book"
               className="font-body text-sm text-on-surface-variant uppercase tracking-widest border-b border-outline-variant pb-2 hover:text-on-surface hover:border-on-surface transition-colors"
             >
               View Full Menu
@@ -71,7 +71,7 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-outline-variant/20">
             {/* Service 1 */}
-            <div className="bg-surface p-10 flex flex-col justify-between aspect-[3/4] hover:bg-surface-container-low transition-colors duration-500 group">
+            <a href="/book?service=abby-s-signature-glow-facial-75-min" className="bg-surface p-10 flex flex-col justify-between aspect-[3/4] hover:bg-surface-container-low transition-colors duration-500 group">
               <div>
                 <span className="font-label text-[10px] text-primary tracking-widest uppercase">
                   75 min / $125
@@ -87,9 +87,9 @@ export default function Home() {
               <span className="text-4xl font-extralight text-outline-variant group-hover:text-primary transition-colors">
                 &#8599;
               </span>
-            </div>
+            </a>
             {/* Service 2 */}
-            <div className="bg-surface p-10 flex flex-col justify-between aspect-[3/4] hover:bg-surface-container-low transition-colors duration-500 group">
+            <a href="/book?service=ultimate-renewal-facial-90-min" className="bg-surface p-10 flex flex-col justify-between aspect-[3/4] hover:bg-surface-container-low transition-colors duration-500 group">
               <div>
                 <span className="font-label text-[10px] text-primary tracking-widest uppercase">
                   90 min / $150
@@ -105,9 +105,9 @@ export default function Home() {
               <span className="text-4xl font-extralight text-outline-variant group-hover:text-primary transition-colors">
                 &#8599;
               </span>
-            </div>
+            </a>
             {/* Service 3 */}
-            <div className="bg-surface p-10 flex flex-col justify-between aspect-[3/4] hover:bg-surface-container-low transition-colors duration-500 group">
+            <a href="/book?service=clarifying-acne-facial-60-min" className="bg-surface p-10 flex flex-col justify-between aspect-[3/4] hover:bg-surface-container-low transition-colors duration-500 group">
               <div>
                 <span className="font-label text-[10px] text-primary tracking-widest uppercase">
                   From $110
@@ -123,9 +123,9 @@ export default function Home() {
               <span className="text-4xl font-extralight text-outline-variant group-hover:text-primary transition-colors">
                 &#8599;
               </span>
-            </div>
+            </a>
             {/* Service 4 */}
-            <div className="bg-surface p-10 flex flex-col justify-between aspect-[3/4] hover:bg-surface-container-low transition-colors duration-500 group">
+            <a href="/book?service=customized-facial" className="bg-surface p-10 flex flex-col justify-between aspect-[3/4] hover:bg-surface-container-low transition-colors duration-500 group">
               <div>
                 <span className="font-label text-[10px] text-primary tracking-widest uppercase">
                   60 min / From $100
@@ -141,7 +141,7 @@ export default function Home() {
               <span className="text-4xl font-extralight text-outline-variant group-hover:text-primary transition-colors">
                 &#8599;
               </span>
-            </div>
+            </a>
           </div>
         </div>
       </section>
