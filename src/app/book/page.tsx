@@ -146,129 +146,154 @@ function BookContent() {
             </p>
           </div>
 
-          {/* Services */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-outline-variant/20 mb-24">
-            {services.map((service) => (
-              <button
-                key={service.slug}
-                onClick={() =>
-                  setSelected(selected === service.slug ? null : service.slug)
-                }
-                className={`text-left p-10 transition-all duration-500 group ${
-                  selected === service.slug
-                    ? "bg-inverse-surface text-surface"
-                    : "bg-surface hover:bg-surface-container-low"
-                }`}
-              >
-                <div className="flex justify-between items-start mb-6">
-                  <span
-                    className={`font-label text-[10px] tracking-widest uppercase ${
-                      selected === service.slug
-                        ? "text-surface-dim"
-                        : "text-primary"
-                    }`}
-                  >
-                    {service.duration}
-                  </span>
-                  <span
-                    className={`font-headline text-2xl italic ${
-                      selected === service.slug
-                        ? "text-surface"
-                        : "text-on-surface"
-                    }`}
-                  >
-                    {service.price}
-                  </span>
-                </div>
-                <h3
-                  className={`font-headline text-3xl mb-4 ${
-                    selected === service.slug
-                      ? "italic text-surface"
-                      : "group-hover:italic"
-                  }`}
-                >
-                  {service.name}
-                </h3>
-                <p
-                  className={`font-body text-sm leading-relaxed font-light mb-6 ${
-                    selected === service.slug
-                      ? "text-surface-dim"
-                      : "text-on-surface-variant"
-                  }`}
-                >
-                  {service.description}
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {service.includes.map((item) => (
-                    <span
-                      key={item}
-                      className={`font-label text-[10px] uppercase tracking-wider px-3 py-1.5 ${
+          {/* Two-column: Services left, Calendar right */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            {/* Services list */}
+            <div className="lg:col-span-5">
+              <div className="flex flex-col gap-px bg-outline-variant/20">
+                {services.map((service) => (
+                  <div key={service.slug}>
+                    <button
+                      onClick={() =>
+                        setSelected(
+                          selected === service.slug ? null : service.slug
+                        )
+                      }
+                      className={`w-full text-left p-8 transition-all duration-500 group ${
                         selected === service.slug
-                          ? "bg-surface/10 text-surface-dim"
-                          : "bg-surface-container-highest text-on-surface"
+                          ? "bg-inverse-surface text-surface"
+                          : "bg-surface hover:bg-surface-container-low"
                       }`}
                     >
-                      {item}
-                    </span>
+                      <div className="flex justify-between items-start mb-3">
+                        <span
+                          className={`font-label text-[10px] tracking-widest uppercase ${
+                            selected === service.slug
+                              ? "text-surface-dim"
+                              : "text-primary"
+                          }`}
+                        >
+                          {service.duration}
+                        </span>
+                        <span
+                          className={`font-headline text-xl italic ${
+                            selected === service.slug
+                              ? "text-surface"
+                              : "text-on-surface"
+                          }`}
+                        >
+                          {service.price}
+                        </span>
+                      </div>
+                      <h3
+                        className={`font-headline text-2xl mb-3 ${
+                          selected === service.slug
+                            ? "italic text-surface"
+                            : "group-hover:italic"
+                        }`}
+                      >
+                        {service.name}
+                      </h3>
+                      <p
+                        className={`font-body text-sm leading-relaxed font-light ${
+                          selected === service.slug
+                            ? "text-surface-dim"
+                            : "text-on-surface-variant"
+                        }`}
+                      >
+                        {service.description}
+                      </p>
+                      {selected === service.slug && (
+                        <div className="flex flex-wrap gap-2 mt-4">
+                          {service.includes.map((item) => (
+                            <span
+                              key={item}
+                              className="font-label text-[10px] uppercase tracking-wider px-3 py-1.5 bg-surface/10 text-surface-dim"
+                            >
+                              {item}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </button>
+
+                    {/* Mobile calendar — shows below selected card */}
+                    {selected === service.slug && (
+                      <div className="lg:hidden bg-surface p-4">
+                        <Cal
+                          key={`mobile-${selected}`}
+                          calLink={`freshfacebyabby/${selected}`}
+                          style={{
+                            width: "100%",
+                            minHeight: "500px",
+                            overflow: "auto",
+                          }}
+                          config={{ layout: "month_view", theme: "light" }}
+                        />
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+
+              {/* Add-ons */}
+              <div className="mt-12">
+                <h2 className="font-headline text-2xl font-light tracking-tighter mb-6">
+                  Enhance Your Treatment
+                </h2>
+                <div className="flex flex-col gap-px bg-outline-variant/20">
+                  {addons.map((addon) => (
+                    <div
+                      key={addon.name}
+                      className="bg-surface-container-low p-6 hover:bg-surface-container transition-colors duration-300"
+                    >
+                      <div className="flex justify-between items-start mb-2">
+                        <h4 className="font-headline text-lg">{addon.name}</h4>
+                        <span className="font-headline text-base italic text-primary">
+                          {addon.price}
+                        </span>
+                      </div>
+                      <p className="font-body text-sm text-on-surface-variant font-light leading-relaxed">
+                        {addon.description}
+                      </p>
+                    </div>
                   ))}
                 </div>
-              </button>
-            ))}
-          </div>
+                <p className="font-body text-xs text-on-surface-variant font-light mt-3">
+                  Mention add-ons when booking or at your appointment.
+                </p>
+              </div>
+            </div>
 
-          {/* Add-ons */}
-          <div className="mb-24">
-            <h2 className="font-headline text-3xl md:text-4xl font-light tracking-tighter mb-10">
-              Enhance Your Treatment
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-outline-variant/20">
-              {addons.map((addon) => (
-                <div
-                  key={addon.name}
-                  className="bg-surface-container-low p-8 hover:bg-surface-container transition-colors duration-300"
-                >
-                  <div className="flex justify-between items-start mb-3">
-                    <h4 className="font-headline text-xl">{addon.name}</h4>
-                    <span className="font-headline text-lg italic text-primary">
-                      {addon.price}
-                    </span>
+            {/* Desktop calendar — sticky on the right */}
+            <div className="hidden lg:block lg:col-span-7">
+              <div className="sticky top-28">
+                {selected ? (
+                  <div>
+                    <h2 className="font-headline text-2xl font-light tracking-tighter mb-6">
+                      Select a Time
+                    </h2>
+                    <Cal
+                      key={`desktop-${selected}`}
+                      calLink={`freshfacebyabby/${selected}`}
+                      style={{
+                        width: "100%",
+                        minHeight: "600px",
+                        overflow: "auto",
+                      }}
+                      config={{ layout: "month_view", theme: "light" }}
+                    />
                   </div>
-                  <p className="font-body text-sm text-on-surface-variant font-light leading-relaxed">
-                    {addon.description}
-                  </p>
-                </div>
-              ))}
+                ) : (
+                  <div className="flex items-center justify-center h-96 bg-surface-container-low">
+                    <p className="font-headline text-2xl italic text-on-surface-variant">
+                      Select a service to view times
+                    </p>
+                  </div>
+                )}
+              </div>
             </div>
-            <p className="font-body text-xs text-on-surface-variant font-light mt-4">
-              Mention add-ons when booking or at your appointment. Abby will
-              customize your session accordingly.
-            </p>
           </div>
-
-          {/* Calendar */}
-          {selected ? (
-            <div>
-              <h2 className="font-headline text-3xl md:text-4xl font-light tracking-tighter mb-10">
-                Select a Time
-              </h2>
-              <Cal
-                key={selected}
-                calLink={`freshfacebyabby/${selected}`}
-                style={{
-                  width: "100%",
-                  minHeight: "600px",
-                  overflow: "auto",
-                }}
-                config={{ layout: "month_view", theme: "light" }}
-              />
-            </div>
-          ) : (
-            <div className="py-16 text-center">
-              <p className="font-headline text-2xl italic text-on-surface-variant">
-                Select a service above to view available times
-              </p>
-            </div>
-          )}
         </div>
       </section>
     </main>
