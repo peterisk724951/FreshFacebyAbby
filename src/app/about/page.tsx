@@ -17,9 +17,9 @@ export default function AboutPage() {
               <Image
                 alt="Abby - Esthetician and founder of Fresh Face by Abby"
                 className="w-full h-full object-cover grayscale brightness-110 hover:grayscale-0 transition-all duration-700"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuC83eyZemjXVd43VP21H0xAKzZRx5-JtmcMOBmEa3NyzOAFbxbWdI-97BBjepL9xQ-WDnjfvb9whEjEUQj3UozUwvqUQJK0Ar36ZnVS1fdxoQUr4yKmeplXBKtl2eAen3IqM4BsRQPxl_HeiFlMKFed3ywis9k7ERtpSXa-ScPQZkjymNAhGiuYa_TvjFu8m1LzmaHcTInykyaTelNQ4YXzA_3SDRs6p_YuOgFlTuEQUnaPF3crKIfT8VHAjskmpa95UHN5OY6KP5M"
-                width={500}
-                height={625}
+                src="/abby.webp"
+                width={600}
+                height={400}
               />
             </div>
           </div>
