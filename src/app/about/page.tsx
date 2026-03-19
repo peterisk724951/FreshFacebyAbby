@@ -32,21 +32,23 @@ export default function AboutPage() {
             </h1>
             <div className="space-y-6 max-w-lg">
               <p className="font-body text-lg leading-relaxed font-light text-on-surface-variant">
-                Fresh Face by Abby is more than just facials &mdash; it&apos;s a
-                calming reset for both your skin and your spirit.
+                Hi! I&apos;m Abby, the esthetician behind Fresh Face by Abby. I
+                created this space to offer more than just facials &mdash; I
+                want each treatment to feel like a calming reset for both your
+                skin and your spirit.
               </p>
               <p className="font-body text-lg leading-relaxed font-light text-on-surface-variant">
-                Abby offers customized skincare treatments with results-driven
-                products and gentle, relaxing service. Whether you&apos;re
-                dealing with breakouts, dullness, or simply need a moment of
-                calm, she&apos;s here to support you through your skincare
-                journey.
+                My goal is to help you feel confident in your skin using
+                customized treatments, results-driven products, and a gentle,
+                relaxing approach. Whether you&apos;re struggling with
+                breakouts, dullness, or just need a moment of peace, I&apos;m
+                here to support your skin journey in a way that feels intentional
+                and personal.
               </p>
               <p className="font-body text-lg leading-relaxed font-light text-on-surface-variant">
                 Every treatment is fully personalized based on your individual
-                skin needs. You&apos;ll leave with aftercare advice to maintain
-                your results at home &mdash; and a refreshed, glowing
-                complexion.
+                needs. You&apos;ll leave with aftercare advice to maintain your
+                results at home &mdash; and a refreshed, glowing complexion.
               </p>
             </div>
           </div>

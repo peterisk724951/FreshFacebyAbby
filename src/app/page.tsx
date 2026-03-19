@@ -153,13 +153,13 @@ export default function Home() {
       >
         <div className="max-w-screen-2xl mx-auto grid grid-cols-12 gap-6 items-center">
           <div className="col-span-12 md:col-span-5 relative mb-16 md:mb-0">
-            <div className="aspect-[4/5] overflow-hidden border border-surface/20">
+            <div className="aspect-[3/2] overflow-hidden border border-surface/20">
               <Image
                 alt="Abby - Esthetician"
-                className="w-full h-full object-cover object-right"
+                className="w-full h-full object-contain"
                 src="/abby.webp"
-                width={600}
-                height={400}
+                width={900}
+                height={600}
               />
             </div>
           </div>
