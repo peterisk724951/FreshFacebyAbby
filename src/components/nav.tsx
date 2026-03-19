@@ -20,7 +20,7 @@ export function Nav() {
       {/* Announcement Bar */}
       <div className="w-full bg-inverse-surface text-surface py-3 px-6 text-center overflow-hidden">
         <p className="font-label text-[10px] uppercase tracking-[0.3em] font-light">
-          Grand opening prices until 12/31 &middot;{" "}
+          Grand opening prices until 7/1 &middot;{" "}
           <span className="font-medium italic">Booking Now</span>
         </p>
       </div>
