@@ -81,11 +81,6 @@ const addons = [
     price: "+$35",
     description: "Professional-grade peel for deeper exfoliation and glow.",
   },
-  {
-    name: "Lip or Eye Treatment",
-    price: "+$20",
-    description: "Targeted treatment for fine lines around delicate areas.",
-  },
 ];
 
 export default function BookPage() {
