@@ -1,6 +1,5 @@
 "use client";
 
-import Cal, { getCalApi } from "@calcom/embed-react";
 import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
@@ -99,40 +98,8 @@ function BookContent() {
     if (service) setSelected(service);
   }, [searchParams]);
 
-  useEffect(() => {
-    (async () => {
-      const cal = await getCalApi();
-      cal("ui", {
-        theme: "light",
-        hideEventTypeDetails: false,
-        layout: "month_view",
-        cssVarsPerTheme: {
-          light: {
-            "cal-brand": "#2f3331",
-            "cal-text": "#2f3331",
-            "cal-text-emphasis": "#2f3331",
-            "cal-border-emphasis": "#afb3b0",
-            "cal-text-muted": "#5c605d",
-            "cal-bg": "#faf9f7",
-            "cal-bg-emphasis": "#f3f4f1",
-          },
-          dark: {
-            "cal-brand": "#2f3331",
-            "cal-text": "#2f3331",
-            "cal-text-emphasis": "#2f3331",
-            "cal-border-emphasis": "#afb3b0",
-            "cal-text-muted": "#5c605d",
-            "cal-bg": "#faf9f7",
-            "cal-bg-emphasis": "#f3f4f1",
-          },
-        },
-      });
-    })();
-  }, []);
-
   return (
     <main>
-      {/* Service Selection */}
       <section className="py-32 px-8 md:px-24 bg-surface">
         <div className="max-w-screen-2xl mx-auto">
           <div className="mb-16">
@@ -147,7 +114,6 @@ function BookContent() {
             </p>
           </div>
 
-          {/* Two-column: Services left, Calendar right */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
             {/* Services list */}
             <div className="lg:col-span-5">
@@ -220,16 +186,11 @@ function BookContent() {
 
                     {/* Mobile calendar — shows below selected card */}
                     {selected === service.slug && (
-                      <div className="lg:hidden bg-surface p-4">
-                        <Cal
-                          key={`mobile-${selected}`}
-                          calLink={`freshfacebyabby/${selected}`}
-                          style={{
-                            width: "100%",
-                            minHeight: "500px",
-                            overflow: "auto",
-                          }}
-                          config={{ layout: "month_view", theme: "light" }}
+                      <div className="lg:hidden bg-surface">
+                        <iframe
+                          src={`https://cal.com/freshfacebyabby/${selected}?embed=true&layout=month_view&theme=light`}
+                          className="w-full border-0"
+                          style={{ minHeight: "600px" }}
                         />
                       </div>
                     )}
@@ -290,15 +251,11 @@ function BookContent() {
                     <h2 className="font-headline text-2xl font-light tracking-tighter mb-6">
                       Select a Time
                     </h2>
-                    <Cal
-                      key={`desktop-${selected}`}
-                      calLink={`freshfacebyabby/${selected}`}
-                      style={{
-                        width: "100%",
-                        minHeight: "600px",
-                        overflow: "auto",
-                      }}
-                      config={{ layout: "month_view", theme: "light" }}
+                    <iframe
+                      key={selected}
+                      src={`https://cal.com/freshfacebyabby/${selected}?embed=true&layout=month_view&theme=light`}
+                      className="w-full border-0"
+                      style={{ minHeight: "700px" }}
                     />
                   </div>
                 ) : (
