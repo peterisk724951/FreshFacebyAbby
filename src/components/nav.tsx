@@ -56,7 +56,7 @@ export function Nav() {
             })}
           </div>
           <Link
-            href="/contact"
+            href="/book"
             className="hidden md:block bg-on-surface text-surface px-8 py-3 text-sm uppercase tracking-widest hover:bg-primary transition-colors duration-300 active:scale-95"
           >
             Book Now
@@ -114,7 +114,7 @@ export function Nav() {
               );
             })}
             <Link
-              href="/contact"
+              href="/book"
               onClick={() => setOpen(false)}
               className="bg-on-surface text-surface px-8 py-4 text-sm uppercase tracking-widest hover:bg-primary transition-colors duration-300 text-center mt-2"
             >

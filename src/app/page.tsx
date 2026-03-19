@@ -21,9 +21,9 @@ export default function Home() {
               needs in Cypress, TX.
             </p>
             <div className="mt-8">
-              <button className="bg-on-surface text-surface px-12 py-5 text-sm uppercase tracking-[0.2em] hover:bg-primary transition-all duration-300 inline-block">
+              <a href="/book" className="bg-on-surface text-surface px-12 py-5 text-sm uppercase tracking-[0.2em] hover:bg-primary transition-all duration-300 inline-block">
                 Book Your Appointment
-              </button>
+              </a>
             </div>
           </div>
           <div className="col-span-12 md:col-span-5 order-1 md:order-2 mb-12 md:mb-0 relative">
