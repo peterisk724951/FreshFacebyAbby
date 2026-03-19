@@ -156,7 +156,7 @@ export default function Home() {
             <div className="aspect-[4/5] overflow-hidden border border-surface/20">
               <Image
                 alt="Abby - Esthetician"
-                className="w-full h-full object-cover grayscale brightness-110"
+                className="w-full h-full object-cover object-right"
                 src="/abby.webp"
                 width={600}
                 height={400}
