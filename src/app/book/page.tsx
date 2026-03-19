@@ -92,9 +92,12 @@ export default function BookPage() {
 
 function BookContent() {
   const searchParams = useSearchParams();
-  const [selected, setSelected] = useState<string | null>(
-    searchParams.get("service")
-  );
+  const [selected, setSelected] = useState<string | null>(null);
+
+  useEffect(() => {
+    const service = searchParams.get("service");
+    if (service) setSelected(service);
+  }, [searchParams]);
 
   useEffect(() => {
     (async () => {
