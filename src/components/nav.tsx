@@ -27,7 +27,7 @@ export function Nav() {
 
       {/* Navigation */}
       <nav className="bg-surface/80 backdrop-blur-xl sticky top-0 z-50">
-        <div className="flex justify-between items-center w-full px-8 py-6 max-w-screen-2xl mx-auto">
+        <div className="flex justify-between items-center w-full px-6 md:px-8 py-5 md:py-6 max-w-screen-2xl mx-auto">
           <Link
             href="/"
             className="font-headline text-2xl font-light tracking-tighter text-on-surface"
@@ -92,7 +92,7 @@ export function Nav() {
             open ? "max-h-96" : "max-h-0"
           }`}
         >
-          <div className="flex flex-col gap-6 px-8 pb-8 pt-2">
+          <div className="flex flex-col gap-6 px-6 pb-8 pt-2">
             {links.map((link) => {
               const isActive =
                 link.href === "/"

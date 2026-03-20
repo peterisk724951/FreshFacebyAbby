@@ -31,14 +31,14 @@ export default function ContactPage() {
 
   return (
     <main>
-      <section className="py-32 px-8 md:px-24 bg-surface">
-        <div className="max-w-screen-2xl mx-auto grid grid-cols-12 gap-6">
+      <section className="py-20 md:py-32 px-6 md:px-24 bg-surface">
+        <div className="max-w-screen-2xl mx-auto grid grid-cols-12 gap-4 md:gap-6">
           {/* Info */}
           <div className="col-span-12 md:col-span-4">
             <span className="font-label text-xs uppercase tracking-[0.4em] text-primary mb-6 block">
               Get In Touch
             </span>
-            <h1 className="font-headline text-5xl md:text-7xl font-light tracking-tighter mb-12">
+            <h1 className="font-headline text-4xl md:text-7xl font-light tracking-tighter mb-8 md:mb-12">
               Contact
             </h1>
             <div className="space-y-10">
@@ -64,7 +64,7 @@ export default function ContactPage() {
           </div>
 
           {/* Form */}
-          <div className="col-span-12 md:col-span-7 md:col-start-6 mt-16 md:mt-0">
+          <div className="col-span-12 md:col-span-7 md:col-start-6 mt-10 md:mt-0">
             {submitted ? (
               <div className="py-24 text-center">
                 <h2 className="font-headline text-3xl italic mb-4">

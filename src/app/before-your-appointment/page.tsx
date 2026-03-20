@@ -7,17 +7,17 @@ export const metadata = {
 export default function BeforeYourAppointmentPage() {
   return (
     <main>
-      <section className="py-32 px-8 md:px-24 bg-surface">
-        <div className="max-w-screen-2xl mx-auto grid grid-cols-12 gap-6">
+      <section className="py-20 md:py-32 px-6 md:px-24 bg-surface">
+        <div className="max-w-screen-2xl mx-auto grid grid-cols-12 gap-4 md:gap-6">
           <div className="col-span-12 md:col-span-8 md:col-start-3">
             <span className="font-label text-xs uppercase tracking-[0.4em] text-primary mb-6 block">
               Preparation
             </span>
-            <h1 className="font-headline text-5xl md:text-7xl font-light tracking-tighter mb-16">
+            <h1 className="font-headline text-4xl md:text-7xl font-light tracking-tighter mb-10 md:mb-16">
               Before Your Appointment
             </h1>
 
-            <div className="space-y-16">
+            <div className="space-y-10 md:space-y-16">
               <div>
                 <h2 className="font-headline text-2xl mb-4">
                   Arrive Early

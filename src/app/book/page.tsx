@@ -118,16 +118,16 @@ function BookContent() {
 
   return (
     <main>
-      <section className="py-32 px-8 md:px-24 bg-surface">
+      <section className="py-20 md:py-32 px-6 md:px-24 bg-surface">
         <div className="max-w-screen-2xl mx-auto">
-          <div className="mb-16">
+          <div className="mb-10 md:mb-16">
             <span className="font-label text-xs uppercase tracking-[0.4em] text-primary mb-4 block">
               Schedule
             </span>
-            <h1 className="font-headline text-5xl md:text-7xl font-light tracking-tighter">
+            <h1 className="font-headline text-4xl md:text-7xl font-light tracking-tighter">
               Book Your Appointment
             </h1>
-            <p className="font-body text-lg text-on-surface-variant font-light mt-6 max-w-xl">
+            <p className="font-body text-base md:text-lg text-on-surface-variant font-light mt-4 md:mt-6 max-w-xl">
               Select a treatment below to view available times.
             </p>
           </div>
@@ -144,7 +144,7 @@ function BookContent() {
                           selected === service.slug ? null : service.slug
                         )
                       }
-                      className={`w-full text-left p-8 transition-all duration-500 group ${
+                      className={`w-full text-left p-6 md:p-8 transition-all duration-500 group ${
                         selected === service.slug
                           ? "bg-inverse-surface text-surface"
                           : "bg-surface hover:bg-surface-container-low"

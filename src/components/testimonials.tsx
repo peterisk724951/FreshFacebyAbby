@@ -88,14 +88,14 @@ export function Testimonials() {
   const review = reviews[current];
 
   return (
-    <section className="py-32 px-8 md:px-24 bg-surface-container-low">
+    <section className="py-20 md:py-32 px-6 md:px-24 bg-surface-container-low">
       <div className="max-w-screen-2xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-20 gap-8">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-20 gap-6 md:gap-8">
           <div>
             <span className="font-label text-xs uppercase tracking-[0.4em] text-primary mb-4 block">
               Testimonials
             </span>
-            <h2 className="font-headline text-5xl md:text-7xl font-light tracking-tighter">
+            <h2 className="font-headline text-4xl md:text-7xl font-light tracking-tighter">
               Kind Words
             </h2>
           </div>
@@ -150,7 +150,7 @@ export function Testimonials() {
               </p>
             </div>
           </div>
-          <div className="col-span-12 md:col-span-3 md:col-start-10 flex flex-col justify-end">
+          <div className="col-span-12 md:col-span-3 md:col-start-10 flex flex-col justify-end mt-6 md:mt-0">
             <div
               className={`transition-opacity duration-300 ${
                 isTransitioning ? "opacity-0" : "opacity-100"
@@ -177,7 +177,7 @@ export function Testimonials() {
         </div>
 
         {/* Progress dots */}
-        <div className="flex gap-2 mt-16">
+        <div className="flex gap-2 mt-10 md:mt-16">
           {reviews.map((_, i) => (
             <button
               key={i}
