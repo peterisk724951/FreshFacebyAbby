@@ -30,11 +30,11 @@ export default function Home() {
           <div className="col-span-12 md:col-span-5 order-1 md:order-2 mb-8 md:mb-0 relative">
             <div className="border border-outline-variant/30 p-3 md:p-4 translate-x-2 translate-y-2 md:translate-x-12 md:translate-y-12 mr-2 md:mr-0">
               <Image
-                alt="Luxury skincare treatment"
-                className="w-full grayscale brightness-90 hover:grayscale-0 transition-all duration-700"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyks4aU7es4aQlkvf91CRR-2yNTH0HN-RdQ6BE7D7j9ufeHlclx6SlZE77lKSB-sjJV3qTYym7zmFljqg771bU_k-CoONBZOnMUKQYHJjYP4EzW5r6ozZMag1q_RT0fbYkdZxIlF3JtijL5W69vqmgqmSEz70f92RVugcGMtKK2d7pWaHqGGXaT8E3AS-4PEwrXnxWkgt4VenN1jCTbV9A93WWY7OpVO3GyYcAwh7DGExS1g6slq2lBP1EVzy3tUnwWnC_NQlHW5M"
+                alt="Fresh Face by Abby treatment suite"
+                className="w-full grayscale brightness-90 hover:grayscale-0 transition-all duration-700 object-cover"
+                src="/studio.jpg"
                 width={600}
-                height={750}
+                height={900}
               />
             </div>
           </div>
