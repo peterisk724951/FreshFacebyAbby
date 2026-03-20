@@ -13,7 +13,7 @@ export function Footer() {
         <div className="flex flex-wrap justify-center gap-x-8 gap-y-3 md:gap-12 font-label text-[10px] uppercase tracking-[0.2em] font-light">
           <a
             className="text-outline hover:text-on-surface transition-colors duration-300 opacity-80 hover:opacity-100"
-            href="https://instagram.com/freshface.byabby"
+            href="https://instagram.com/freshfacebyabby"
             target="_blank"
             rel="noopener noreferrer"
           >

@@ -57,7 +57,7 @@ export default function ContactPage() {
                   Social
                 </p>
                 <p className="font-body text-lg font-light">
-                  @freshface.byabby
+                  @freshfacebyabby
                 </p>
               </div>
             </div>
