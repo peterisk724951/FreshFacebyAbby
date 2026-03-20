@@ -28,13 +28,13 @@ export default function Home() {
             </div>
           </div>
           <div className="col-span-12 md:col-span-5 order-1 md:order-2 mb-8 md:mb-0 relative">
-            <div className="border border-outline-variant/30 p-3 md:p-4 translate-x-2 translate-y-2 md:translate-x-12 md:translate-y-12 mr-2 md:mr-0">
+            <div className="border border-outline-variant/30 p-3 md:p-4 translate-x-2 translate-y-2 md:translate-x-12 md:translate-y-12 mr-2 md:mr-0 aspect-[3/4] md:aspect-[4/5] overflow-hidden">
               <Image
                 alt="Fresh Face by Abby treatment suite"
-                className="w-full grayscale brightness-90 hover:grayscale-0 transition-all duration-700 object-cover"
+                className="w-full h-full object-cover transition-all duration-700"
                 src="/studio.jpg"
                 width={600}
-                height={900}
+                height={750}
               />
             </div>
           </div>
