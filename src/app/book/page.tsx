@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 const services = [
@@ -86,6 +86,24 @@ export default function BookPage() {
     <Suspense>
       <BookContent />
     </Suspense>
+  );
+}
+
+function MobileCalendar({ slug }: { slug: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    ref.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, []);
+
+  return (
+    <div ref={ref} className="lg:hidden bg-surface scroll-mt-24">
+      <iframe
+        src={`https://cal.com/freshfacebyabby/${slug}?embed=true&layout=month_view&theme=light`}
+        className="w-full border-0"
+        style={{ minHeight: "600px" }}
+      />
+    </div>
   );
 }
 
@@ -186,13 +204,7 @@ function BookContent() {
 
                     {/* Mobile calendar — shows below selected card */}
                     {selected === service.slug && (
-                      <div className="lg:hidden bg-surface">
-                        <iframe
-                          src={`https://cal.com/freshfacebyabby/${selected}?embed=true&layout=month_view&theme=light`}
-                          className="w-full border-0"
-                          style={{ minHeight: "600px" }}
-                        />
-                      </div>
+                      <MobileCalendar slug={selected} />
                     )}
                   </div>
                 ))}
