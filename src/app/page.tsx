@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Testimonials } from "@/components/testimonials";
 
 export default function Home() {
   return (
@@ -145,6 +146,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Testimonials */}
+      <Testimonials />
 
       {/* About Abby */}
       <section
