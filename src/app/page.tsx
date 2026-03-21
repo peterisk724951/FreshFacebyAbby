@@ -72,7 +72,7 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-outline-variant/20">
             {/* Service 1 */}
-            <a href="/book?service=abby-s-signature-glow-facial-75-min" className="bg-surface p-8 md:p-10 flex flex-col justify-between md:aspect-[3/4] hover:bg-surface-container-low transition-colors duration-500 group">
+            <a href="/book?service=abby-s-signature-glow-facial" className="bg-surface p-8 md:p-10 flex flex-col justify-between md:aspect-[3/4] hover:bg-surface-container-low transition-colors duration-500 group">
               <div>
                 <span className="font-label text-[10px] text-primary tracking-widest uppercase">
                   75 min / $125
@@ -90,7 +90,7 @@ export default function Home() {
               </svg>
             </a>
             {/* Service 2 */}
-            <a href="/book?service=ultimate-renewal-facial-90-min" className="bg-surface p-8 md:p-10 flex flex-col justify-between md:aspect-[3/4] hover:bg-surface-container-low transition-colors duration-500 group">
+            <a href="/book?service=ultimate-renewal-facial" className="bg-surface p-8 md:p-10 flex flex-col justify-between md:aspect-[3/4] hover:bg-surface-container-low transition-colors duration-500 group">
               <div>
                 <span className="font-label text-[10px] text-primary tracking-widest uppercase">
                   90 min / $150
@@ -108,7 +108,7 @@ export default function Home() {
               </svg>
             </a>
             {/* Service 3 */}
-            <a href="/book?service=clarifying-acne-facial-60-min" className="bg-surface p-8 md:p-10 flex flex-col justify-between md:aspect-[3/4] hover:bg-surface-container-low transition-colors duration-500 group">
+            <a href="/book?service=clarifying-acne-facial" className="bg-surface p-8 md:p-10 flex flex-col justify-between md:aspect-[3/4] hover:bg-surface-container-low transition-colors duration-500 group">
               <div>
                 <span className="font-label text-[10px] text-primary tracking-widest uppercase">
                   From $110

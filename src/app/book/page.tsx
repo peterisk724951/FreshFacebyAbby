@@ -6,7 +6,7 @@ import { useSearchParams } from "next/navigation";
 const services = [
   {
     name: "Abby's Signature Glow Facial",
-    slug: "abby-s-signature-glow-facial-75-min",
+    slug: "abby-s-signature-glow-facial",
     duration: "75 min",
     price: "$125",
     description:
@@ -24,7 +24,7 @@ const services = [
   },
   {
     name: "Ultimate Renewal Facial",
-    slug: "ultimate-renewal-facial-90-min",
+    slug: "ultimate-renewal-facial",
     duration: "90 min",
     price: "$150",
     description:
@@ -40,7 +40,7 @@ const services = [
   },
   {
     name: "Clarifying Acne Facial",
-    slug: "clarifying-acne-facial-60-min",
+    slug: "clarifying-acne-facial",
     duration: "60 min",
     price: "From $110",
     description:
@@ -99,9 +99,9 @@ function MobileCalendar({ slug }: { slug: string }) {
   return (
     <div ref={ref} className="lg:hidden bg-surface scroll-mt-24">
       <iframe
-        src={`https://cal.com/freshfacebyabby/${slug}?embed=true&layout=month_view&theme=light`}
+        src={`https://calendly.com/freshfacebyabby/${slug}?hide_gdpr_banner=1`}
         className="w-full border-0"
-        style={{ minHeight: "600px" }}
+        style={{ minHeight: "700px" }}
       />
     </div>
   );
@@ -265,7 +265,7 @@ function BookContent() {
                     </h2>
                     <iframe
                       key={selected}
-                      src={`https://cal.com/freshfacebyabby/${selected}?embed=true&layout=month_view&theme=light`}
+                      src={`https://calendly.com/freshfacebyabby/${selected}?hide_gdpr_banner=1`}
                       className="w-full border-0"
                       style={{ minHeight: "700px" }}
                     />
