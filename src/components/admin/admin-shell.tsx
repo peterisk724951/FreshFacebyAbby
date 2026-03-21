@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 
 const tabs = [
   { href: "/admin", label: "Dashboard", icon: "grid" },
+  { href: "/admin/calendar", label: "Calendar", icon: "calendarView" },
   { href: "/admin/appointments", label: "Appointments", icon: "calendar" },
   { href: "/admin/customers", label: "Customers", icon: "users" },
   { href: "/admin/contacts", label: "Messages", icon: "mail" },
@@ -26,6 +27,12 @@ function TabIcon({ icon }: { icon: string }) {
       return (
         <svg {...props}>
           <path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z" />
+        </svg>
+      );
+    case "calendarView":
+      return (
+        <svg {...props}>
+          <path d="M3 6h18v15H3zM3 6V4h18v2M8 2v4M16 2v4M3 10h18M3 14h18M7 10v11M11 10v11M15 10v11M19 10v11" />
         </svg>
       );
     case "calendar":
