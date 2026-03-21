@@ -22,6 +22,13 @@ interface Booking {
   services: { name: string } | null;
 }
 
+interface SoapPhoto {
+  id: string;
+  label: string;
+  storage_path: string;
+  url?: string;
+}
+
 interface SoapNote {
   id: string;
   booking_id: string | null;
@@ -32,6 +39,7 @@ interface SoapNote {
   products_used: string;
   contraindications: string;
   created_at: string;
+  photos?: SoapPhoto[];
 }
 
 export default function CustomerDetailPage() {
@@ -43,6 +51,7 @@ export default function CustomerDetailPage() {
   const [tab, setTab] = useState<"history" | "notes">("notes");
   const [showForm, setShowForm] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [uploadingPhotos, setUploadingPhotos] = useState<Record<string, boolean>>({});
 
   const [form, setForm] = useState({
     booking_id: "",
@@ -97,6 +106,40 @@ export default function CustomerDetailPage() {
       setShowForm(false);
     }
     setSaving(false);
+  }
+
+  async function handlePhotoUpload(
+    noteId: string,
+    label: "before" | "after",
+    files: FileList | null
+  ) {
+    if (!files || files.length === 0) return;
+    setUploadingPhotos((prev) => ({ ...prev, [`${noteId}-${label}`]: true }));
+
+    for (const file of Array.from(files)) {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("soap_note_id", noteId);
+      formData.append("customer_id", id);
+      formData.append("label", label);
+
+      const res = await fetch("/api/admin/soap-photos", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (res.ok) {
+        const photo = await res.json();
+        setSoapNotes((prev) =>
+          prev.map((n) =>
+            n.id === noteId
+              ? { ...n, photos: [...(n.photos ?? []), photo] }
+              : n
+          )
+        );
+      }
+    }
+    setUploadingPhotos((prev) => ({ ...prev, [`${noteId}-${label}`]: false }));
   }
 
   function formatDate(dateStr: string) {
@@ -303,75 +346,190 @@ export default function CustomerDetailPage() {
             </div>
           ) : (
             <div className="flex flex-col gap-6">
-              {soapNotes.map((note) => (
-                <div key={note.id} className="bg-surface-container-low p-6 md:p-8">
-                  <p className="font-label text-[10px] uppercase tracking-widest text-primary mb-4">
-                    {formatDate(note.created_at)}
-                  </p>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {note.subjective && (
-                      <div>
-                        <p className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant mb-1">
-                          Subjective
-                        </p>
-                        <p className="font-body text-sm font-light">
-                          {note.subjective}
-                        </p>
+              {soapNotes.map((note) => {
+                const beforePhotos = (note.photos ?? []).filter((p) => p.label === "before");
+                const afterPhotos = (note.photos ?? []).filter((p) => p.label === "after");
+
+                return (
+                  <div key={note.id} className="bg-surface-container-low p-6 md:p-8">
+                    <p className="font-label text-[10px] uppercase tracking-widest text-primary mb-4">
+                      {formatDate(note.created_at)}
+                    </p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {note.subjective && (
+                        <div>
+                          <p className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant mb-1">
+                            Subjective
+                          </p>
+                          <p className="font-body text-sm font-light">
+                            {note.subjective}
+                          </p>
+                        </div>
+                      )}
+                      {note.objective && (
+                        <div>
+                          <p className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant mb-1">
+                            Objective
+                          </p>
+                          <p className="font-body text-sm font-light">
+                            {note.objective}
+                          </p>
+                        </div>
+                      )}
+                      {note.assessment && (
+                        <div>
+                          <p className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant mb-1">
+                            Assessment
+                          </p>
+                          <p className="font-body text-sm font-light">
+                            {note.assessment}
+                          </p>
+                        </div>
+                      )}
+                      {note.plan && (
+                        <div>
+                          <p className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant mb-1">
+                            Plan
+                          </p>
+                          <p className="font-body text-sm font-light">
+                            {note.plan}
+                          </p>
+                        </div>
+                      )}
+                      {note.products_used && (
+                        <div>
+                          <p className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant mb-1">
+                            Products Used
+                          </p>
+                          <p className="font-body text-sm font-light">
+                            {note.products_used}
+                          </p>
+                        </div>
+                      )}
+                      {note.contraindications && (
+                        <div>
+                          <p className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant mb-1">
+                            Contraindications
+                          </p>
+                          <p className="font-body text-sm font-light">
+                            {note.contraindications}
+                          </p>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Photos Section */}
+                    <div className="mt-6 pt-6 border-t border-outline-variant/30">
+                      <p className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant mb-4">
+                        Photos
+                      </p>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        {/* Before */}
+                        <div>
+                          <p className="font-label text-[9px] uppercase tracking-widest text-primary mb-2">
+                            Before
+                          </p>
+                          <div className="flex flex-wrap gap-2 mb-3">
+                            {beforePhotos.map((p) => (
+                              <a
+                                key={p.id}
+                                href={p.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="block w-20 h-20 bg-surface-container overflow-hidden"
+                              >
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img
+                                  src={p.url}
+                                  alt="Before"
+                                  className="w-full h-full object-cover"
+                                />
+                              </a>
+                            ))}
+                          </div>
+                          <label className="inline-flex items-center gap-2 px-3 py-2 bg-surface-container-low hover:bg-surface-container border border-outline-variant/30 cursor-pointer transition-colors">
+                            <svg
+                              width="14"
+                              height="14"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                            >
+                              <path d="M12 5v14M5 12h14" />
+                            </svg>
+                            <span className="font-label text-[9px] uppercase tracking-widest">
+                              {uploadingPhotos[`${note.id}-before`]
+                                ? "Uploading..."
+                                : "Add"}
+                            </span>
+                            <input
+                              type="file"
+                              accept="image/jpeg,image/png,image/webp,image/heic,image/heif,.heic,.heif"
+                              multiple
+                              className="hidden"
+                              onChange={(e) =>
+                                handlePhotoUpload(note.id, "before", e.target.files)
+                              }
+                            />
+                          </label>
+                        </div>
+
+                        {/* After */}
+                        <div>
+                          <p className="font-label text-[9px] uppercase tracking-widest text-primary mb-2">
+                            After
+                          </p>
+                          <div className="flex flex-wrap gap-2 mb-3">
+                            {afterPhotos.map((p) => (
+                              <a
+                                key={p.id}
+                                href={p.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="block w-20 h-20 bg-surface-container overflow-hidden"
+                              >
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img
+                                  src={p.url}
+                                  alt="After"
+                                  className="w-full h-full object-cover"
+                                />
+                              </a>
+                            ))}
+                          </div>
+                          <label className="inline-flex items-center gap-2 px-3 py-2 bg-surface-container-low hover:bg-surface-container border border-outline-variant/30 cursor-pointer transition-colors">
+                            <svg
+                              width="14"
+                              height="14"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              strokeWidth="1.5"
+                            >
+                              <path d="M12 5v14M5 12h14" />
+                            </svg>
+                            <span className="font-label text-[9px] uppercase tracking-widest">
+                              {uploadingPhotos[`${note.id}-after`]
+                                ? "Uploading..."
+                                : "Add"}
+                            </span>
+                            <input
+                              type="file"
+                              accept="image/jpeg,image/png,image/webp,image/heic,image/heif,.heic,.heif"
+                              multiple
+                              className="hidden"
+                              onChange={(e) =>
+                                handlePhotoUpload(note.id, "after", e.target.files)
+                              }
+                            />
+                          </label>
+                        </div>
                       </div>
-                    )}
-                    {note.objective && (
-                      <div>
-                        <p className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant mb-1">
-                          Objective
-                        </p>
-                        <p className="font-body text-sm font-light">
-                          {note.objective}
-                        </p>
-                      </div>
-                    )}
-                    {note.assessment && (
-                      <div>
-                        <p className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant mb-1">
-                          Assessment
-                        </p>
-                        <p className="font-body text-sm font-light">
-                          {note.assessment}
-                        </p>
-                      </div>
-                    )}
-                    {note.plan && (
-                      <div>
-                        <p className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant mb-1">
-                          Plan
-                        </p>
-                        <p className="font-body text-sm font-light">
-                          {note.plan}
-                        </p>
-                      </div>
-                    )}
-                    {note.products_used && (
-                      <div>
-                        <p className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant mb-1">
-                          Products Used
-                        </p>
-                        <p className="font-body text-sm font-light">
-                          {note.products_used}
-                        </p>
-                      </div>
-                    )}
-                    {note.contraindications && (
-                      <div>
-                        <p className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant mb-1">
-                          Contraindications
-                        </p>
-                        <p className="font-body text-sm font-light">
-                          {note.contraindications}
-                        </p>
-                      </div>
-                    )}
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
         </div>

@@ -15,7 +15,7 @@ export async function GET(
 
   const { id } = await params;
 
-  const [customerRes, bookingsRes, notesRes] = await Promise.all([
+  const [customerRes, bookingsRes, notesRes, photosRes] = await Promise.all([
     supabaseAdmin.from("customers").select("*").eq("id", id).single(),
     supabaseAdmin
       .from("bookings")
@@ -27,6 +27,11 @@ export async function GET(
       .select("*")
       .eq("customer_id", id)
       .order("created_at", { ascending: false }),
+    supabaseAdmin
+      .from("soap_note_photos")
+      .select("*")
+      .eq("customer_id", id)
+      .order("created_at", { ascending: true }),
   ]);
 
   if (customerRes.error) {
@@ -36,9 +41,21 @@ export async function GET(
     );
   }
 
+  // Attach photos to their SOAP notes and generate public URLs
+  const photos = photosRes.data ?? [];
+  const notesWithPhotos = (notesRes.data ?? []).map((note: { id: string }) => ({
+    ...note,
+    photos: photos
+      .filter((p: { soap_note_id: string }) => p.soap_note_id === note.id)
+      .map((p: { storage_path: string }) => ({
+        ...p,
+        url: supabaseAdmin!.storage.from("soap-photos").getPublicUrl(p.storage_path).data.publicUrl,
+      })),
+  }));
+
   return NextResponse.json({
     customer: customerRes.data,
     bookings: bookingsRes.data ?? [],
-    soapNotes: notesRes.data ?? [],
+    soapNotes: notesWithPhotos,
   });
 }

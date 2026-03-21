@@ -7,6 +7,7 @@ const tabs = [
   { href: "/admin", label: "Dashboard", icon: "grid" },
   { href: "/admin/calendar", label: "Calendar", icon: "calendarView" },
   { href: "/admin/appointments", label: "Appointments", icon: "calendar" },
+  { href: "/admin/revenue", label: "Revenue", icon: "dollar" },
   { href: "/admin/customers", label: "Customers", icon: "users" },
   { href: "/admin/contacts", label: "Messages", icon: "mail" },
   { href: "/admin/subscribers", label: "Subscribers", icon: "bell" },
@@ -33,6 +34,12 @@ function TabIcon({ icon }: { icon: string }) {
       return (
         <svg {...props}>
           <path d="M3 6h18v15H3zM3 6V4h18v2M8 2v4M16 2v4M3 10h18M3 14h18M7 10v11M11 10v11M15 10v11M19 10v11" />
+        </svg>
+      );
+    case "dollar":
+      return (
+        <svg {...props}>
+          <path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" />
         </svg>
       );
     case "calendar":
