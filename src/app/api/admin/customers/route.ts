@@ -15,7 +15,7 @@ export async function GET(req: NextRequest) {
 
   let query = supabaseAdmin
     .from("customers")
-    .select("*, bookings(count, starts_at, status)")
+    .select("*, bookings(starts_at, status)")
     .order("created_at", { ascending: false })
     .limit(200);
 
