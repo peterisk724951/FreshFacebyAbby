@@ -44,9 +44,12 @@ function daysSinceDate(dateStr: string): number {
   );
 }
 
+type SortBy = "name" | "visits";
+
 export default function CustomersPage() {
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [search, setSearch] = useState("");
+  const [sortBy, setSortBy] = useState<SortBy>("name");
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
@@ -72,6 +75,15 @@ export default function CustomersPage() {
     return () => clearTimeout(timeout);
   }, [search, router]);
 
+  const sorted = [...customers].sort((a, b) => {
+    if (sortBy === "visits") {
+      return (b.bookings?.length ?? 0) - (a.bookings?.length ?? 0);
+    }
+    const nameA = `${a.first_name} ${a.last_name}`.toLowerCase();
+    const nameB = `${b.first_name} ${b.last_name}`.toLowerCase();
+    return nameA.localeCompare(nameB);
+  });
+
   return (
     <div>
       <div className="mb-10">
@@ -83,7 +95,7 @@ export default function CustomersPage() {
         </h1>
       </div>
 
-      <div className="mb-8">
+      <div className="mb-8 flex flex-col sm:flex-row sm:items-end gap-4">
         <input
           type="text"
           placeholder="Search by name or email..."
@@ -91,6 +103,28 @@ export default function CustomersPage() {
           onChange={(e) => setSearch(e.target.value)}
           className="w-full max-w-md bg-transparent border-b border-outline py-3 font-body text-sm font-light focus:outline-none focus:border-on-surface transition-colors placeholder:text-outline"
         />
+        <div className="flex gap-2 flex-shrink-0">
+          <button
+            onClick={() => setSortBy("name")}
+            className={`px-4 py-2 font-label text-[10px] uppercase tracking-widest transition-colors ${
+              sortBy === "name"
+                ? "bg-on-surface text-surface"
+                : "bg-surface-container-low text-on-surface-variant hover:bg-surface-container"
+            }`}
+          >
+            A–Z
+          </button>
+          <button
+            onClick={() => setSortBy("visits")}
+            className={`px-4 py-2 font-label text-[10px] uppercase tracking-widest transition-colors ${
+              sortBy === "visits"
+                ? "bg-on-surface text-surface"
+                : "bg-surface-container-low text-on-surface-variant hover:bg-surface-container"
+            }`}
+          >
+            Most Visits
+          </button>
+        </div>
       </div>
 
       {loading ? (
@@ -103,7 +137,7 @@ export default function CustomersPage() {
         </div>
       ) : (
         <div className="flex flex-col gap-px bg-outline-variant/20">
-          {customers.map((customer) => {
+          {sorted.map((customer) => {
             const flag = getRetentionFlag(customer.bookings);
             const lastVisit = getLastVisit(customer.bookings);
             const visitCount = customer.bookings?.length ?? 0;
