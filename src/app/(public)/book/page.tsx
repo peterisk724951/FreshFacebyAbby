@@ -71,15 +71,12 @@ const services = [
 ];
 
 const customizedAddons = [
-  { name: "Base Facial", price: "$100", tier: "base" },
-  { name: "Add-on Microdermabrasion", price: "+$15", tier: "single" },
-  { name: "Add-on LED Light Therapy", price: "+$15", tier: "single" },
-  { name: "Add-on Enzyme Mask", price: "+$15", tier: "single" },
-  { name: "Add-on Microderm + LED", price: "+$30", tier: "double" },
-  { name: "Add-on Microderm + Enzyme", price: "+$30", tier: "double" },
-  { name: "Add-on LED + Enzyme", price: "+$30", tier: "double" },
-  { name: "Add-on Microderm + LED + Enzyme", price: "+$45", tier: "triple" },
+  { name: "Microdermabrasion", price: 15 },
+  { name: "LED Light Therapy", price: 15 },
+  { name: "Enzyme Mask", price: 15 },
 ];
+
+const BASE_PRICE = 100;
 
 export default function BookPage() {
   return (
@@ -89,7 +86,7 @@ export default function BookPage() {
   );
 }
 
-function MobileCalendar({ slug }: { slug: string }) {
+function MobileCalendar({ url }: { url: string }) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -99,7 +96,7 @@ function MobileCalendar({ slug }: { slug: string }) {
   return (
     <div ref={ref} className="lg:hidden bg-surface scroll-mt-24">
       <iframe
-        src={`https://calendly.com/freshfacebyabby/${slug}?hide_gdpr_banner=1`}
+        src={url}
         className="w-full border-0"
         style={{ minHeight: "700px" }}
       />
@@ -110,11 +107,37 @@ function MobileCalendar({ slug }: { slug: string }) {
 function BookContent() {
   const searchParams = useSearchParams();
   const [selected, setSelected] = useState<string | null>(null);
+  const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
 
   useEffect(() => {
     const service = searchParams.get("service");
     if (service) setSelected(service);
   }, [searchParams]);
+
+  function toggleAddon(name: string) {
+    setSelectedAddons((prev) =>
+      prev.includes(name) ? prev.filter((a) => a !== name) : [...prev, name]
+    );
+  }
+
+  const addonTotal = selectedAddons.reduce((sum, name) => {
+    const addon = customizedAddons.find((a) => a.name === name);
+    return sum + (addon?.price ?? 0);
+  }, 0);
+
+  const customizedTotal = BASE_PRICE + addonTotal;
+
+  function getCalendlyUrl(slug: string) {
+    const base = `https://calendly.com/freshfacebyabby/${slug}?hide_gdpr_banner=1`;
+    if (slug === "customized-facial" && selectedAddons.length > 0) {
+      const addonsText = `Base Facial ($100) + ${selectedAddons.join(", ")} — Total: $${customizedTotal}`;
+      return `${base}&a1=${encodeURIComponent(addonsText)}`;
+    }
+    if (slug === "customized-facial") {
+      return `${base}&a1=${encodeURIComponent(`Base Facial ($100) — No add-ons`)}`;
+    }
+    return base;
+  }
 
   return (
     <main>
@@ -204,7 +227,7 @@ function BookContent() {
 
                     {/* Mobile calendar — shows below selected card */}
                     {selected === service.slug && (
-                      <MobileCalendar slug={selected} />
+                      <MobileCalendar url={getCalendlyUrl(selected)} />
                     )}
                   </div>
                 ))}
@@ -217,39 +240,75 @@ function BookContent() {
                     Customize Your Facial
                   </h2>
                   <p className="font-body text-sm text-on-surface-variant font-light mb-6">
-                    Select your preferred option when booking. Pricing varies by
-                    add-ons selected.
+                    Select add-ons below. Your selections will be included with
+                    your booking.
                   </p>
+
+                  {/* Base */}
+                  <div className="p-5 flex justify-between items-center bg-inverse-surface text-surface mb-px">
+                    <span className="font-body text-sm font-medium">
+                      Base Facial
+                    </span>
+                    <span className="font-headline text-base italic">
+                      $100
+                    </span>
+                  </div>
+
+                  {/* Toggleable add-ons */}
                   <div className="flex flex-col gap-px bg-outline-variant/20">
-                    {customizedAddons.map((addon) => (
-                      <div
-                        key={addon.name}
-                        className={`p-5 flex justify-between items-center transition-colors duration-300 ${
-                          addon.tier === "base"
-                            ? "bg-inverse-surface text-surface"
-                            : "bg-surface-container-low hover:bg-surface-container"
-                        }`}
-                      >
-                        <span
-                          className={`font-body text-sm ${
-                            addon.tier === "base"
-                              ? "font-medium text-surface"
-                              : "font-light text-on-surface"
+                    {customizedAddons.map((addon) => {
+                      const isSelected = selectedAddons.includes(addon.name);
+                      return (
+                        <button
+                          key={addon.name}
+                          onClick={() => toggleAddon(addon.name)}
+                          className={`p-5 flex justify-between items-center transition-all duration-300 text-left ${
+                            isSelected
+                              ? "bg-secondary-container"
+                              : "bg-surface-container-low hover:bg-surface-container"
                           }`}
                         >
-                          {addon.name}
-                        </span>
-                        <span
-                          className={`font-headline text-base italic ${
-                            addon.tier === "base"
-                              ? "text-surface"
-                              : "text-primary"
-                          }`}
-                        >
-                          {addon.price}
-                        </span>
-                      </div>
-                    ))}
+                          <div className="flex items-center gap-3">
+                            <div
+                              className={`w-5 h-5 border flex items-center justify-center transition-colors ${
+                                isSelected
+                                  ? "bg-on-surface border-on-surface"
+                                  : "border-outline"
+                              }`}
+                            >
+                              {isSelected && (
+                                <svg
+                                  width="12"
+                                  height="12"
+                                  viewBox="0 0 24 24"
+                                  fill="none"
+                                  stroke="white"
+                                  strokeWidth="3"
+                                >
+                                  <path d="M5 12l5 5L20 7" />
+                                </svg>
+                              )}
+                            </div>
+                            <span className="font-body text-sm font-light text-on-surface">
+                              {addon.name}
+                            </span>
+                          </div>
+                          <span className="font-headline text-base italic text-primary">
+                            +${addon.price}
+                          </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {/* Total */}
+                  <div className="mt-4 p-5 bg-surface-container-low flex justify-between items-center">
+                    <span className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">
+                      Total
+                    </span>
+                    <span className="font-headline text-2xl italic">
+                      ${customizedTotal}
+                    </span>
                   </div>
                 </div>
               )}
@@ -264,8 +323,8 @@ function BookContent() {
                       Select a Time
                     </h2>
                     <iframe
-                      key={selected}
-                      src={`https://calendly.com/freshfacebyabby/${selected}?hide_gdpr_banner=1`}
+                      key={selected + selectedAddons.join(",")}
+                      src={getCalendlyUrl(selected)}
                       className="w-full border-0"
                       style={{ minHeight: "700px" }}
                     />
