@@ -18,7 +18,7 @@ export async function GET() {
     Date.now() - 30 * 24 * 60 * 60 * 1000
   ).toISOString();
 
-  const [upcoming, totalCustomers, newCustomers, unreadContacts, subscribers] =
+  const [upcoming, upcomingList, totalCustomers, newCustomers, unreadContacts, subscribers] =
     await Promise.all([
       supabaseAdmin
         .from("bookings")
@@ -26,6 +26,13 @@ export async function GET() {
         .eq("status", "confirmed")
         .gte("starts_at", now)
         .lte("starts_at", weekFromNow),
+      supabaseAdmin
+        .from("bookings")
+        .select("id, starts_at, ends_at, status, customers(first_name, last_name), services(name)")
+        .eq("status", "confirmed")
+        .gte("starts_at", now)
+        .order("starts_at", { ascending: true })
+        .limit(5),
       supabaseAdmin
         .from("customers")
         .select("*", { count: "exact", head: true }),
@@ -45,6 +52,7 @@ export async function GET() {
 
   return NextResponse.json({
     upcomingThisWeek: upcoming.count ?? 0,
+    upcomingAppointments: upcomingList.data ?? [],
     totalCustomers: totalCustomers.count ?? 0,
     newCustomersThisMonth: newCustomers.count ?? 0,
     unreadContacts: unreadContacts.count ?? 0,
