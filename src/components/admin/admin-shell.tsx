@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const tabs = [
   { href: "/admin", label: "Dashboard", icon: "grid" },
@@ -76,6 +77,15 @@ function TabIcon({ icon }: { icon: string }) {
 export function AdminShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
+  const [unreadCount, setUnreadCount] = useState(0);
+
+  useEffect(() => {
+    fetch("/api/admin/contacts?count_unread=1")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        if (data?.unreadCount !== undefined) setUnreadCount(data.unreadCount);
+      });
+  }, [pathname]);
 
   async function handleLogout() {
     await fetch("/api/admin/logout", { method: "POST" });
@@ -103,6 +113,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
               tab.href === "/admin"
                 ? pathname === "/admin"
                 : pathname.startsWith(tab.href);
+            const showBadge = tab.href === "/admin/contacts" && unreadCount > 0;
             return (
               <Link
                 key={tab.href}
@@ -115,6 +126,11 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
               >
                 <TabIcon icon={tab.icon} />
                 {tab.label}
+                {showBadge && (
+                  <span className="ml-auto bg-red-500 text-white text-[10px] font-medium min-w-[18px] h-[18px] flex items-center justify-center px-1">
+                    {unreadCount}
+                  </span>
+                )}
               </Link>
             );
           })}
@@ -151,17 +167,23 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
               tab.href === "/admin"
                 ? pathname === "/admin"
                 : pathname.startsWith(tab.href);
+            const showBadge = tab.href === "/admin/contacts" && unreadCount > 0;
             return (
               <Link
                 key={tab.href}
                 href={tab.href}
-                className={`flex-shrink-0 px-3 py-2 font-label text-[10px] uppercase tracking-widest transition-colors ${
+                className={`flex-shrink-0 px-3 py-2 font-label text-[10px] uppercase tracking-widest transition-colors flex items-center gap-1.5 ${
                   isActive
                     ? "bg-surface/15 text-surface"
                     : "text-surface-dim"
                 }`}
               >
                 {tab.label}
+                {showBadge && (
+                  <span className="bg-red-500 text-white text-[9px] font-medium min-w-[16px] h-[16px] flex items-center justify-center px-1">
+                    {unreadCount}
+                  </span>
+                )}
               </Link>
             );
           })}
