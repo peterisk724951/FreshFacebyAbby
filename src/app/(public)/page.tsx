@@ -251,35 +251,35 @@ export default function Home() {
             </div>
           </div>
           <div className="col-span-12 md:col-span-8 mt-10 md:mt-0">
-            <div className="aspect-video bg-surface-container-high relative overflow-hidden group">
-              <div
-                className="absolute inset-0 grayscale opacity-80 group-hover:opacity-100 transition-opacity duration-700 bg-cover bg-center"
-                style={{
-                  backgroundImage:
-                    "url('https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&q=80&w=1200')",
-                }}
+            <div className="aspect-video bg-surface-container-high relative overflow-hidden">
+              <iframe
+                src="https://maps.google.com/maps?q=24300+US+290+Frontage+Rd+Suite+211+Cypress+TX+77429&output=embed"
+                className="absolute inset-0 w-full h-full border-0 grayscale hover:grayscale-0 transition-all duration-700"
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Fresh Face by Abby location"
               />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <a
-                  href="https://www.google.com/maps/search/?api=1&query=24300+US+290+Frontage+Rd+Suite+211+Cypress+TX+77429"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="bg-surface p-8 md:p-12 text-center max-w-xs border border-outline-variant/20 hover:bg-surface-container-low transition-colors group"
-                >
-                  <h4 className="font-headline text-2xl italic mb-4">
-                    Cypress Studio
-                  </h4>
-                  <p className="font-body text-xs uppercase tracking-widest text-on-surface-variant leading-loose group-hover:text-on-surface transition-colors">
-                    24300 US 290 Frontage Rd
-                    <br />
-                    Suite 211, Cypress TX 77429
-                  </p>
-                  <p className="font-label text-[9px] uppercase tracking-widest text-primary mt-4">
-                    Get Directions
-                  </p>
-                </a>
-              </div>
             </div>
+            <a
+              href="https://www.google.com/maps/dir/?api=1&destination=24300+US+290+Frontage+Rd+Suite+211+Cypress+TX+77429"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex items-center gap-2 font-label text-[10px] uppercase tracking-widest text-primary hover:text-on-surface transition-colors"
+            >
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+              >
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
+                <circle cx="12" cy="9" r="2.5" />
+              </svg>
+              Get Directions
+            </a>
           </div>
         </div>
       </section>
