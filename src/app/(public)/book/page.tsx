@@ -108,6 +108,7 @@ function BookContent() {
   const searchParams = useSearchParams();
   const [selected, setSelected] = useState<string | null>(null);
   const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
+  const [addonsConfirmed, setAddonsConfirmed] = useState(false);
 
   useEffect(() => {
     const service = searchParams.get("service");
@@ -162,11 +163,13 @@ function BookContent() {
                 {services.map((service) => (
                   <div key={service.slug}>
                     <button
-                      onClick={() =>
+                      onClick={() => {
                         setSelected(
                           selected === service.slug ? null : service.slug
-                        )
-                      }
+                        );
+                        setAddonsConfirmed(false);
+                        setSelectedAddons([]);
+                      }}
                       className={`w-full text-left p-6 md:p-8 transition-all duration-500 group ${
                         selected === service.slug
                           ? "bg-inverse-surface text-surface"
@@ -226,16 +229,101 @@ function BookContent() {
                     </button>
 
                     {/* Mobile calendar — shows below selected card */}
-                    {selected === service.slug && (
-                      <MobileCalendar url={getCalendlyUrl(selected)} />
-                    )}
+                    {/* For customized facial, show add-on picker first on mobile */}
+                    {selected === service.slug &&
+                      service.slug === "customized-facial" &&
+                      !addonsConfirmed && (
+                        <div className="lg:hidden bg-surface p-6 border-t border-outline-variant/20">
+                          <h3 className="font-headline text-xl font-light tracking-tighter mb-4">
+                            Customize Your Facial
+                          </h3>
+                          <p className="font-body text-sm text-on-surface-variant font-light mb-5">
+                            Select any add-ons, then continue to pick a time.
+                          </p>
+
+                          <div className="p-4 flex justify-between items-center bg-inverse-surface text-surface mb-px">
+                            <span className="font-body text-sm font-medium">
+                              Base Facial
+                            </span>
+                            <span className="font-headline text-base italic">
+                              $100
+                            </span>
+                          </div>
+
+                          <div className="flex flex-col gap-px bg-outline-variant/20 mb-4">
+                            {customizedAddons.map((addon) => {
+                              const isSelected = selectedAddons.includes(addon.name);
+                              return (
+                                <button
+                                  key={addon.name}
+                                  onClick={() => toggleAddon(addon.name)}
+                                  className={`p-4 flex justify-between items-center transition-all duration-300 text-left ${
+                                    isSelected
+                                      ? "bg-secondary-container"
+                                      : "bg-surface-container-low hover:bg-surface-container"
+                                  }`}
+                                >
+                                  <div className="flex items-center gap-3">
+                                    <div
+                                      className={`w-5 h-5 border flex items-center justify-center transition-colors ${
+                                        isSelected
+                                          ? "bg-on-surface border-on-surface"
+                                          : "border-outline"
+                                      }`}
+                                    >
+                                      {isSelected && (
+                                        <svg
+                                          width="12"
+                                          height="12"
+                                          viewBox="0 0 24 24"
+                                          fill="none"
+                                          stroke="white"
+                                          strokeWidth="3"
+                                        >
+                                          <path d="M5 12l5 5L20 7" />
+                                        </svg>
+                                      )}
+                                    </div>
+                                    <span className="font-body text-sm font-light text-on-surface">
+                                      {addon.name}
+                                    </span>
+                                  </div>
+                                  <span className="font-headline text-base italic text-primary">
+                                    +${addon.price}
+                                  </span>
+                                </button>
+                              );
+                            })}
+                          </div>
+
+                          <div className="p-4 bg-surface-container-low flex justify-between items-center mb-6">
+                            <span className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">
+                              Total
+                            </span>
+                            <span className="font-headline text-2xl italic">
+                              ${customizedTotal}
+                            </span>
+                          </div>
+
+                          <button
+                            onClick={() => setAddonsConfirmed(true)}
+                            className="w-full bg-on-surface text-surface py-4 text-sm uppercase tracking-[0.2em] hover:bg-primary transition-all duration-300"
+                          >
+                            Continue to Booking
+                          </button>
+                        </div>
+                      )}
+                    {selected === service.slug &&
+                      (service.slug !== "customized-facial" || addonsConfirmed) && (
+                        <MobileCalendar url={getCalendlyUrl(selected)} />
+                      )}
                   </div>
                 ))}
               </div>
 
-              {/* Add-ons — only for Customized Facial */}
+              {/* Add-ons — desktop only (mobile has inline picker above) */}
               {selected === "customized-facial" && (
-                <div className="mt-12">
+                <div className="mt-12 hidden lg:block">
                   <h2 className="font-headline text-2xl font-light tracking-tighter mb-6">
                     Customize Your Facial
                   </h2>
