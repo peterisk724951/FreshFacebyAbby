@@ -128,8 +128,16 @@ function BookContent() {
 
   const customizedTotal = BASE_PRICE + addonTotal;
 
+  function getCustomizedSlug() {
+    const count = selectedAddons.length;
+    if (count >= 3) return "customized-facial-75-min-clone"; // 90 min
+    if (count >= 2) return "customized-facial-60-min-clone"; // 75 min
+    return "customized-facial"; // 60 min
+  }
+
   function getCalendlyUrl(slug: string) {
-    const base = `https://calendly.com/freshfacebyabby/${slug}?hide_gdpr_banner=1`;
+    const actualSlug = slug === "customized-facial" ? getCustomizedSlug() : slug;
+    const base = `https://calendly.com/freshfacebyabby/${actualSlug}?hide_gdpr_banner=1`;
     if (slug === "customized-facial" && selectedAddons.length > 0) {
       const addonsText = `Base Facial ($100) + ${selectedAddons.join(", ")} — Total: $${customizedTotal}`;
       return `${base}&a1=${encodeURIComponent(addonsText)}`;
