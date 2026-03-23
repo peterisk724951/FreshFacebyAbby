@@ -126,6 +126,7 @@ export default function ContactPage() {
                   <input
                     type="tel"
                     name="phone"
+                    required
                     className="w-full bg-transparent border-b border-outline py-3 font-body text-lg font-light focus:outline-none focus:border-on-surface transition-colors"
                   />
                 </div>
