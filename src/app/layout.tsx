@@ -16,9 +16,9 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Fresh Face by Abby | Bespoke Skin Sanctuary",
+  title: "Fresh Face by Abby | Custom Skin Sanctuary",
   description:
-    "Bespoke facial treatments tailored to your skin's unique needs in Cypress, TX. Book your appointment with Abby today.",
+    "Custom facial treatments tailored to your skin's unique needs in Cypress, TX. Book your appointment with Abby today.",
 };
 
 export default function RootLayout({

@@ -18,7 +18,7 @@ export default function Home() {
               </span>
             </h1>
             <p className="font-body text-base md:text-xl max-w-md text-on-surface-variant font-light leading-relaxed mt-2 md:mt-4">
-              Bespoke facial treatments tailored to your skin&apos;s unique
+              Custom facial treatments tailored to your skin&apos;s unique
               needs in Cypress, TX.
             </p>
             <div className="mt-4 md:mt-8">
