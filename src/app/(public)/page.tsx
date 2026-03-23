@@ -213,11 +213,32 @@ export default function Home() {
                 <p className="font-label text-[10px] uppercase tracking-widest text-primary mb-2">
                   Address
                 </p>
-                <p className="font-body text-lg font-light">
-                  24300 Hwy 290 Suite 211
-                  <br />
-                  Cypress, TX 77429
-                </p>
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=24300+US+290+Frontage+Rd+Suite+211+Cypress+TX+77429"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-body text-lg font-light hover:text-primary transition-colors inline-flex items-start gap-2 group"
+                >
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    className="flex-shrink-0 mt-1.5 opacity-50 group-hover:opacity-100 transition-opacity"
+                  >
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
+                    <circle cx="12" cy="9" r="2.5" />
+                  </svg>
+                  <span>
+                    24300 US 290 Frontage Rd
+                    <br />
+                    Suite 211
+                    <br />
+                    Cypress, TX 77429
+                  </span>
+                </a>
               </div>
               <div>
                 <p className="font-label text-[10px] uppercase tracking-widest text-primary mb-2">
@@ -239,14 +260,24 @@ export default function Home() {
                 }}
               />
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="bg-surface p-8 md:p-12 text-center max-w-xs border border-outline-variant/20">
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=24300+US+290+Frontage+Rd+Suite+211+Cypress+TX+77429"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="bg-surface p-8 md:p-12 text-center max-w-xs border border-outline-variant/20 hover:bg-surface-container-low transition-colors group"
+                >
                   <h4 className="font-headline text-2xl italic mb-4">
                     Cypress Studio
                   </h4>
-                  <p className="font-body text-xs uppercase tracking-widest text-on-surface-variant leading-loose">
-                    Located in the heart of Cypress Crossing.
+                  <p className="font-body text-xs uppercase tracking-widest text-on-surface-variant leading-loose group-hover:text-on-surface transition-colors">
+                    24300 US 290 Frontage Rd
+                    <br />
+                    Suite 211, Cypress TX 77429
                   </p>
-                </div>
+                  <p className="font-label text-[9px] uppercase tracking-widest text-primary mt-4">
+                    Get Directions
+                  </p>
+                </a>
               </div>
             </div>
           </div>

@@ -46,11 +46,32 @@ export default function ContactPage() {
                 <p className="font-label text-[10px] uppercase tracking-widest text-primary mb-2">
                   Address
                 </p>
-                <p className="font-body text-lg font-light">
-                  24300 Hwy 290 Suite 211
-                  <br />
-                  Cypress, TX 77429
-                </p>
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=24300+US+290+Frontage+Rd+Suite+211+Cypress+TX+77429"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-body text-lg font-light hover:text-primary transition-colors inline-flex items-start gap-2 group"
+                >
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    className="flex-shrink-0 mt-1.5 opacity-50 group-hover:opacity-100 transition-opacity"
+                  >
+                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
+                    <circle cx="12" cy="9" r="2.5" />
+                  </svg>
+                  <span>
+                    24300 US 290 Frontage Rd
+                    <br />
+                    Suite 211
+                    <br />
+                    Cypress, TX 77429
+                  </span>
+                </a>
               </div>
               <div>
                 <p className="font-label text-[10px] uppercase tracking-widest text-primary mb-2">
