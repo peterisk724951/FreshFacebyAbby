@@ -71,9 +71,9 @@ const services = [
 ];
 
 const customizedAddons = [
-  { name: "Microdermabrasion", price: 15 },
-  { name: "LED Light Therapy", price: 15 },
-  { name: "Enzyme Mask", price: 15 },
+  { name: "Microdermabrasion", price: 20 },
+  { name: "LED Light Therapy", price: 20 },
+  { name: "Enzyme Mask", price: 20 },
 ];
 
 const BASE_PRICE = 100;
