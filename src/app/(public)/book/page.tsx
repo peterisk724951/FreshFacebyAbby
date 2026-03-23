@@ -317,7 +317,7 @@ function BookContent() {
                             onClick={() => setAddonsConfirmed(true)}
                             className="w-full bg-on-surface text-surface py-4 text-sm uppercase tracking-[0.2em] hover:bg-primary transition-all duration-300"
                           >
-                            Continue to Booking
+                            {selectedAddons.length > 0 ? "Continue to Booking" : "Skip Add-ons & Book"}
                           </button>
                         </div>
                       )}
@@ -336,8 +336,8 @@ function BookContent() {
                     Customize Your Facial
                   </h2>
                   <p className="font-body text-sm text-on-surface-variant font-light mb-6">
-                    Select add-ons below. Your selections will be included with
-                    your booking.
+                    Add-ons are optional. Select any you&apos;d like to include, or
+                    skip and continue straight to booking.
                   </p>
 
                   {/* Base */}
