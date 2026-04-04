@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Newsreader, Manrope } from "next/font/google";
+import { Analytics } from '@vercel/analytics/next';
 import "./globals.css";
 
 const newsreader = Newsreader({
@@ -31,7 +32,10 @@ export default function RootLayout({
       lang="en"
       className={`${newsreader.variable} ${manrope.variable} antialiased`}
     >
-      <body>{children}</body>
+      <body>
+        {children}
+        <Analytics />
+      </body>
     </html>
   );
 }
