@@ -35,13 +35,15 @@ async function handleBookingCreated(payload: Record<string, unknown>) {
   const timezone = payload.timezone as string;
   const calendlyEventUri = payload.event as string;
 
-  // Event type info
-  const eventType = payload.event_type as Record<string, unknown> | undefined;
-  const eventTypeName = eventType?.name as string | undefined;
-
   // Scheduled event times
   const scheduledEvent = payload.scheduled_event as
     | Record<string, unknown>
+    | undefined;
+
+  // Event type info (Calendly v2 payloads put the name on scheduled_event)
+  const eventType = payload.event_type as Record<string, unknown> | undefined;
+  const eventTypeName = (eventType?.name ?? scheduledEvent?.name) as
+    | string
     | undefined;
   const startTime = scheduledEvent?.start_time as string | undefined;
   const endTime = scheduledEvent?.end_time as string | undefined;
