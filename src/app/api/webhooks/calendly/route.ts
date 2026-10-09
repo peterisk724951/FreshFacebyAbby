@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase-admin";
+import { matchServiceId } from "@/lib/calendly-sync";
 
 export async function POST(req: NextRequest) {
   if (!supabaseAdmin) {
@@ -71,33 +72,7 @@ async function handleBookingCreated(payload: Record<string, unknown>) {
   if (!customer) return;
 
   // Match service by event type name
-  let serviceId: string | null = null;
-  if (eventTypeName) {
-    // Try exact-ish match first, then fuzzy
-    const { data: service } = await supabaseAdmin
-      .from("services")
-      .select("id")
-      .ilike("name", `%${eventTypeName.split("-")[0].trim()}%`)
-      .limit(1)
-      .single();
-    if (service) {
-      serviceId = service.id;
-    } else {
-      // Fallback: check if it contains "customized" or "custom"
-      const nameLower = eventTypeName.toLowerCase();
-      let slug = "customized-facial";
-      if (nameLower.includes("signature") || nameLower.includes("glow")) slug = "signature-glow-facial";
-      else if (nameLower.includes("ultimate") || nameLower.includes("renewal")) slug = "ultimate-renewal-facial";
-      else if (nameLower.includes("acne") || nameLower.includes("clarifying")) slug = "clarifying-acne-facial";
-
-      const { data: fallback } = await supabaseAdmin
-        .from("services")
-        .select("id")
-        .eq("slug", slug)
-        .single();
-      serviceId = fallback?.id ?? null;
-    }
-  }
+  const serviceId = await matchServiceId(supabaseAdmin, eventTypeName);
 
   // Create booking
   await supabaseAdmin.from("bookings").upsert(

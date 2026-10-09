@@ -17,6 +17,9 @@ export default function AppointmentsPage() {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [view, setView] = useState<"upcoming" | "all">("upcoming");
   const [loading, setLoading] = useState(true);
+  const [syncing, setSyncing] = useState(false);
+  const [syncMessage, setSyncMessage] = useState("");
+  const [refreshKey, setRefreshKey] = useState(0);
   const router = useRouter();
 
   useEffect(() => {
@@ -33,7 +36,7 @@ export default function AppointmentsPage() {
         if (data) setBookings(data);
         setLoading(false);
       });
-  }, [view, router]);
+  }, [view, router, refreshKey]);
 
   async function updateStatus(id: string, status: string) {
     await fetch("/api/admin/appointments", {
@@ -44,6 +47,34 @@ export default function AppointmentsPage() {
     setBookings((prev) =>
       prev.map((b) => (b.id === id ? { ...b, status } : b))
     );
+  }
+
+  async function syncCalendly() {
+    setSyncing(true);
+    setSyncMessage("");
+    try {
+      const res = await fetch("/api/admin/sync-calendly", { method: "POST" });
+      if (res.status === 401) {
+        router.push("/admin/login");
+        return;
+      }
+      const data = await res.json();
+      if (!res.ok) {
+        setSyncMessage(data.error ?? "Sync failed");
+        return;
+      }
+      const cancelled = data.addedCancelled + data.markedCancelled;
+      setSyncMessage(
+        `Added ${data.added} appointment${data.added === 1 ? "" : "s"}, ` +
+          `${cancelled} cancelled` +
+          (data.failed ? `, ${data.failed} failed — try again` : "")
+      );
+      setRefreshKey((k) => k + 1);
+    } catch {
+      setSyncMessage("Sync failed");
+    } finally {
+      setSyncing(false);
+    }
   }
 
   function formatDate(dateStr: string) {
@@ -83,7 +114,19 @@ export default function AppointmentsPage() {
             Appointments
           </h1>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap items-center gap-2">
+          {syncMessage && (
+            <span className="font-body text-xs text-on-surface-variant mr-2">
+              {syncMessage}
+            </span>
+          )}
+          <button
+            onClick={syncCalendly}
+            disabled={syncing}
+            className="px-4 py-2 font-label text-[10px] uppercase tracking-widest transition-colors bg-surface-container-low text-on-surface-variant hover:bg-surface-container disabled:opacity-50"
+          >
+            {syncing ? "Syncing..." : "Sync from Calendly"}
+          </button>
           <button
             onClick={() => setView("upcoming")}
             className={`px-4 py-2 font-label text-[10px] uppercase tracking-widest transition-colors ${
