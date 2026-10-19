@@ -9,6 +9,7 @@ const links = [
   { href: "/#services", label: "Services" },
   { href: "/about", label: "About" },
   { href: "/before-your-appointment", label: "Before Your Visit" },
+  { href: "/aftercare", label: "Aftercare" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -38,7 +39,7 @@ export function Nav() {
           >
             Fresh Face by Abby
           </Link>
-          <div className="hidden md:flex items-center gap-6 lg:gap-12">
+          <div className="hidden lg:flex items-center gap-6 xl:gap-12">
             {links.map((link) => {
               const isActive =
                 link.href === "/"
@@ -61,7 +62,7 @@ export function Nav() {
           </div>
           <Link
             href="/book"
-            className="hidden md:block bg-on-surface text-surface px-8 py-3 text-sm uppercase tracking-widest hover:bg-primary transition-colors duration-300 active:scale-95"
+            className="hidden lg:block bg-on-surface text-surface px-8 py-3 text-sm uppercase tracking-widest hover:bg-primary transition-colors duration-300 active:scale-95"
           >
             Book Now
           </Link>
@@ -69,7 +70,7 @@ export function Nav() {
           {/* Mobile hamburger */}
           <button
             onClick={() => setOpen(!open)}
-            className="md:hidden flex flex-col justify-center gap-1.5 w-8 h-8"
+            className="lg:hidden flex flex-col justify-center gap-1.5 w-8 h-8"
             aria-label="Toggle menu"
           >
             <span
@@ -92,7 +93,7 @@ export function Nav() {
 
         {/* Mobile menu overlay */}
         <div
-          className={`md:hidden overflow-hidden transition-all duration-300 ${
+          className={`lg:hidden overflow-hidden transition-all duration-300 ${
             open ? "max-h-[32rem]" : "max-h-0"
           }`}
         >
