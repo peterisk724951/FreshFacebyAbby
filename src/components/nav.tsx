@@ -18,12 +18,15 @@ export function Nav() {
   return (
     <>
       {/* Announcement Bar */}
-      <div className="w-full bg-inverse-surface text-surface py-3 px-6 text-center overflow-hidden">
+      <Link
+        href="/book"
+        className="block w-full bg-inverse-surface text-surface py-3 px-6 text-center overflow-hidden hover:opacity-90 transition-opacity"
+      >
         <p className="font-label text-[10px] uppercase tracking-[0.3em] font-light">
-          Grand opening prices until 7/1 &middot;{" "}
-          <span className="font-medium italic">Booking Now</span>
+          Glow for the holidays &middot;{" "}
+          <span className="font-medium italic">November &amp; December now booking</span>
         </p>
-      </div>
+      </Link>
 
       {/* Navigation */}
       <nav className="bg-surface/80 backdrop-blur-xl sticky top-0 z-50">
