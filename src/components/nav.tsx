@@ -8,6 +8,7 @@ const links = [
   { href: "/", label: "Home" },
   { href: "/#services", label: "Services" },
   { href: "/about", label: "About" },
+  { href: "/before-your-appointment", label: "Before Your Visit" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -37,7 +38,7 @@ export function Nav() {
           >
             Fresh Face by Abby
           </Link>
-          <div className="hidden md:flex items-center gap-12">
+          <div className="hidden md:flex items-center gap-6 lg:gap-12">
             {links.map((link) => {
               const isActive =
                 link.href === "/"
@@ -47,7 +48,7 @@ export function Nav() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`font-headline italic text-lg tracking-tight transition-colors ${
+                  className={`font-headline italic text-lg tracking-tight whitespace-nowrap transition-colors ${
                     isActive
                       ? "text-on-surface font-medium border-b border-on-surface pb-1"
                       : "text-outline hover:text-on-surface"
@@ -92,7 +93,7 @@ export function Nav() {
         {/* Mobile menu overlay */}
         <div
           className={`md:hidden overflow-hidden transition-all duration-300 ${
-            open ? "max-h-96" : "max-h-0"
+            open ? "max-h-[32rem]" : "max-h-0"
           }`}
         >
           <div className="flex flex-col gap-6 px-6 pb-8 pt-2">
