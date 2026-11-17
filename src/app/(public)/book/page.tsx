@@ -2,6 +2,7 @@
 
 import { Suspense, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { GIFT_CARD_URL } from "@/lib/links";
 
 const services = [
   {
@@ -408,6 +409,24 @@ function BookContent() {
                   </div>
                 </div>
               )}
+
+              {/* Gift cards */}
+              <div className="mt-12 p-6 md:p-8 bg-surface-container-low">
+                <h2 className="font-headline text-2xl font-light tracking-tighter mb-3">
+                  Buying for someone else?
+                </h2>
+                <p className="font-body text-sm text-on-surface-variant font-light mb-6">
+                  Give the gift of glow with a Fresh Face by Abby gift card.
+                </p>
+                <a
+                  href={GIFT_CARD_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block bg-on-surface text-surface px-8 py-4 text-sm uppercase tracking-widest hover:bg-primary transition-colors duration-300 active:scale-95"
+                >
+                  Shop Gift Cards
+                </a>
+              </div>
             </div>
 
             {/* Desktop calendar — sticky on the right */}

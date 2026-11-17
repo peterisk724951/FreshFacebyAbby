@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { GIFT_CARD_URL } from "@/lib/links";
 
 const links = [
   { href: "/", label: "Home" },
@@ -20,15 +21,17 @@ export function Nav() {
   return (
     <>
       {/* Announcement Bar */}
-      <Link
-        href="/book"
+      <a
+        href={GIFT_CARD_URL}
+        target="_blank"
+        rel="noopener noreferrer"
         className="block w-full bg-inverse-surface text-surface py-3 px-6 text-center overflow-hidden hover:opacity-90 transition-opacity"
       >
         <p className="font-label text-[10px] uppercase tracking-[0.3em] font-light">
-          Glow for the holidays &middot;{" "}
-          <span className="font-medium italic">November &amp; December now booking</span>
+          Holiday gift cards available &middot;{" "}
+          <span className="font-medium italic">Give the gift of glow</span>
         </p>
-      </Link>
+      </a>
 
       {/* Navigation */}
       <nav className="bg-surface/80 backdrop-blur-xl sticky top-0 z-50">

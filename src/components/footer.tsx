@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { GIFT_CARD_URL } from "@/lib/links";
 
 export function Footer() {
   return (
@@ -37,6 +38,14 @@ export function Footer() {
           >
             Before Your Appointment
           </Link>
+          <a
+            className="text-outline hover:text-on-surface transition-colors duration-300 opacity-80 hover:opacity-100"
+            href={GIFT_CARD_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Gift Cards
+          </a>
           <Link
             className="text-outline hover:text-on-surface transition-colors duration-300 opacity-80 hover:opacity-100"
             href="/contact"
