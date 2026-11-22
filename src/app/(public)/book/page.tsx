@@ -6,6 +6,24 @@ import { GIFT_CARD_URL } from "@/lib/links";
 
 const services = [
   {
+    name: "The Essential Glow Facial",
+    // Site slug (used in /book?service=...). The Calendly event behind it keeps
+    // its original link, see calendlySlug.
+    slug: "the-essential-glow-facial",
+    calendlySlug: "customized-facial",
+    duration: "60 min",
+    price: "$100",
+    description:
+      "The right first facial, and the one to keep coming back to. A deep double cleanse, exfoliation suited to your skin, steam and extractions where needed, a customized mask, and a finish of serum, moisturizer and SPF. You leave clean, calm and glowing, in an hour. Good for: first visits, monthly maintenance, and anyone who wants real results on a lunch break. Want more? Abby's Signature Glow adds 15 minutes of massage and advanced treatment for $125.",
+    includes: [
+      "Deep double cleanse",
+      "Exfoliation suited to your skin",
+      "Steam & extractions (if needed)",
+      "Customized mask",
+      "Serum, moisturizer & SPF",
+    ],
+  },
+  {
     name: "Abby's Signature Glow Facial",
     slug: "abby-s-signature-glow-facial",
     duration: "75 min",
@@ -55,29 +73,7 @@ const services = [
       "High frequency treatment",
     ],
   },
-  {
-    name: "Customized Facial",
-    slug: "customized-facial",
-    duration: "60 / 75 / 90 min",
-    price: "From $100",
-    description:
-      "Fully tailored to your immediate skin concerns and long-term goals. Length varies by options selected. This is the perfect choice if you're not sure what your skin needs — Abby will assess and build your treatment in real time.",
-    includes: [
-      "Skin assessment & consultation",
-      "Customized treatment plan",
-      "Tailored product selection",
-      "Flexible duration",
-    ],
-  },
 ];
-
-const customizedAddons = [
-  { name: "Microdermabrasion", price: 20 },
-  { name: "LED Light Therapy", price: 20 },
-  { name: "Enzyme Mask", price: 20 },
-];
-
-const BASE_PRICE = 100;
 
 export default function BookPage() {
   return (
@@ -108,45 +104,16 @@ function MobileCalendar({ url }: { url: string }) {
 function BookContent() {
   const searchParams = useSearchParams();
   const [selected, setSelected] = useState<string | null>(null);
-  const [selectedAddons, setSelectedAddons] = useState<string[]>([]);
-  const [addonsConfirmed, setAddonsConfirmed] = useState(false);
 
   useEffect(() => {
     const service = searchParams.get("service");
     if (service) setSelected(service);
   }, [searchParams]);
 
-  function toggleAddon(name: string) {
-    setSelectedAddons((prev) =>
-      prev.includes(name) ? prev.filter((a) => a !== name) : [...prev, name]
-    );
-  }
-
-  const addonTotal = selectedAddons.reduce((sum, name) => {
-    const addon = customizedAddons.find((a) => a.name === name);
-    return sum + (addon?.price ?? 0);
-  }, 0);
-
-  const customizedTotal = BASE_PRICE + addonTotal;
-
-  function getCustomizedSlug() {
-    const count = selectedAddons.length;
-    if (count >= 3) return "customized-facial-75-min-clone"; // 90 min
-    if (count >= 2) return "customized-facial-60-min-clone"; // 75 min
-    return "customized-facial"; // 60 min
-  }
-
   function getCalendlyUrl(slug: string) {
-    const actualSlug = slug === "customized-facial" ? getCustomizedSlug() : slug;
-    const base = `https://calendly.com/freshfacebyabby/${actualSlug}?hide_gdpr_banner=1`;
-    if (slug === "customized-facial" && selectedAddons.length > 0) {
-      const addonsText = `Base Facial ($100) + ${selectedAddons.join(", ")} — Total: $${customizedTotal}`;
-      return `${base}&a1=${encodeURIComponent(addonsText)}`;
-    }
-    if (slug === "customized-facial") {
-      return `${base}&a1=${encodeURIComponent(`Base Facial ($100) — No add-ons`)}`;
-    }
-    return base;
+    const service = services.find((s) => s.slug === slug);
+    const calendlySlug = service?.calendlySlug ?? slug;
+    return `https://calendly.com/freshfacebyabby/${calendlySlug}?hide_gdpr_banner=1`;
   }
 
   return (
@@ -172,13 +139,11 @@ function BookContent() {
                 {services.map((service) => (
                   <div key={service.slug}>
                     <button
-                      onClick={() => {
+                      onClick={() =>
                         setSelected(
                           selected === service.slug ? null : service.slug
-                        );
-                        setAddonsConfirmed(false);
-                        setSelectedAddons([]);
-                      }}
+                        )
+                      }
                       className={`w-full text-left p-6 md:p-8 transition-all duration-500 group ${
                         selected === service.slug
                           ? "bg-inverse-surface text-surface"
@@ -238,177 +203,12 @@ function BookContent() {
                     </button>
 
                     {/* Mobile calendar — shows below selected card */}
-                    {/* For customized facial, show add-on picker first on mobile */}
-                    {selected === service.slug &&
-                      service.slug === "customized-facial" &&
-                      !addonsConfirmed && (
-                        <div className="lg:hidden bg-surface p-6 border-t border-outline-variant/20">
-                          <h3 className="font-headline text-xl font-light tracking-tighter mb-4">
-                            Customize Your Facial
-                          </h3>
-                          <p className="font-body text-sm text-on-surface-variant font-light mb-5">
-                            Select any add-ons, then continue to pick a time.
-                          </p>
-
-                          <div className="p-4 flex justify-between items-center bg-inverse-surface text-surface mb-px">
-                            <span className="font-body text-sm font-medium">
-                              Base Facial
-                            </span>
-                            <span className="font-headline text-base italic">
-                              $100
-                            </span>
-                          </div>
-
-                          <div className="flex flex-col gap-px bg-outline-variant/20 mb-4">
-                            {customizedAddons.map((addon) => {
-                              const isSelected = selectedAddons.includes(addon.name);
-                              return (
-                                <button
-                                  key={addon.name}
-                                  onClick={() => toggleAddon(addon.name)}
-                                  className={`p-4 flex justify-between items-center transition-all duration-300 text-left ${
-                                    isSelected
-                                      ? "bg-secondary-container"
-                                      : "bg-surface-container-low hover:bg-surface-container"
-                                  }`}
-                                >
-                                  <div className="flex items-center gap-3">
-                                    <div
-                                      className={`w-5 h-5 border flex items-center justify-center transition-colors ${
-                                        isSelected
-                                          ? "bg-on-surface border-on-surface"
-                                          : "border-outline"
-                                      }`}
-                                    >
-                                      {isSelected && (
-                                        <svg
-                                          width="12"
-                                          height="12"
-                                          viewBox="0 0 24 24"
-                                          fill="none"
-                                          stroke="white"
-                                          strokeWidth="3"
-                                        >
-                                          <path d="M5 12l5 5L20 7" />
-                                        </svg>
-                                      )}
-                                    </div>
-                                    <span className="font-body text-sm font-light text-on-surface">
-                                      {addon.name}
-                                    </span>
-                                  </div>
-                                  <span className="font-headline text-base italic text-primary">
-                                    +${addon.price}
-                                  </span>
-                                </button>
-                              );
-                            })}
-                          </div>
-
-                          <div className="p-4 bg-surface-container-low flex justify-between items-center mb-6">
-                            <span className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">
-                              Total
-                            </span>
-                            <span className="font-headline text-2xl italic">
-                              ${customizedTotal}
-                            </span>
-                          </div>
-
-                          <button
-                            onClick={() => setAddonsConfirmed(true)}
-                            className="w-full bg-on-surface text-surface py-4 text-sm uppercase tracking-[0.2em] hover:bg-primary transition-all duration-300"
-                          >
-                            {selectedAddons.length > 0 ? "Continue to Booking" : "Skip Add-ons & Book"}
-                          </button>
-                        </div>
-                      )}
-                    {selected === service.slug &&
-                      (service.slug !== "customized-facial" || addonsConfirmed) && (
-                        <MobileCalendar url={getCalendlyUrl(selected)} />
-                      )}
+                    {selected === service.slug && (
+                      <MobileCalendar url={getCalendlyUrl(selected)} />
+                    )}
                   </div>
                 ))}
               </div>
-
-              {/* Add-ons — desktop only (mobile has inline picker above) */}
-              {selected === "customized-facial" && (
-                <div className="mt-12 hidden lg:block">
-                  <h2 className="font-headline text-2xl font-light tracking-tighter mb-6">
-                    Customize Your Facial
-                  </h2>
-                  <p className="font-body text-sm text-on-surface-variant font-light mb-6">
-                    Add-ons are optional. Select any you&apos;d like to include, or
-                    skip and continue straight to booking.
-                  </p>
-
-                  {/* Base */}
-                  <div className="p-5 flex justify-between items-center bg-inverse-surface text-surface mb-px">
-                    <span className="font-body text-sm font-medium">
-                      Base Facial
-                    </span>
-                    <span className="font-headline text-base italic">
-                      $100
-                    </span>
-                  </div>
-
-                  {/* Toggleable add-ons */}
-                  <div className="flex flex-col gap-px bg-outline-variant/20">
-                    {customizedAddons.map((addon) => {
-                      const isSelected = selectedAddons.includes(addon.name);
-                      return (
-                        <button
-                          key={addon.name}
-                          onClick={() => toggleAddon(addon.name)}
-                          className={`p-5 flex justify-between items-center transition-all duration-300 text-left ${
-                            isSelected
-                              ? "bg-secondary-container"
-                              : "bg-surface-container-low hover:bg-surface-container"
-                          }`}
-                        >
-                          <div className="flex items-center gap-3">
-                            <div
-                              className={`w-5 h-5 border flex items-center justify-center transition-colors ${
-                                isSelected
-                                  ? "bg-on-surface border-on-surface"
-                                  : "border-outline"
-                              }`}
-                            >
-                              {isSelected && (
-                                <svg
-                                  width="12"
-                                  height="12"
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  stroke="white"
-                                  strokeWidth="3"
-                                >
-                                  <path d="M5 12l5 5L20 7" />
-                                </svg>
-                              )}
-                            </div>
-                            <span className="font-body text-sm font-light text-on-surface">
-                              {addon.name}
-                            </span>
-                          </div>
-                          <span className="font-headline text-base italic text-primary">
-                            +${addon.price}
-                          </span>
-                        </button>
-                      );
-                    })}
-                  </div>
-
-                  {/* Total */}
-                  <div className="mt-4 p-5 bg-surface-container-low flex justify-between items-center">
-                    <span className="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">
-                      Total
-                    </span>
-                    <span className="font-headline text-2xl italic">
-                      ${customizedTotal}
-                    </span>
-                  </div>
-                </div>
-              )}
 
               {/* Gift cards */}
               <div className="mt-12 p-6 md:p-8 bg-surface-container-low">
@@ -438,7 +238,7 @@ function BookContent() {
                       Select a Time
                     </h2>
                     <iframe
-                      key={selected + selectedAddons.join(",")}
+                      key={selected}
                       src={getCalendlyUrl(selected)}
                       className="w-full border-0"
                       style={{ minHeight: "700px" }}

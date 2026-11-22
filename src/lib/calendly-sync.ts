@@ -76,10 +76,13 @@ export async function matchServiceId(
     .single();
   if (service) return service.id;
 
-  // Fallback: check if it contains "customized" or "custom"
+  // Fallback by keyword. "essential" must be checked before "glow", since both
+  // The Essential Glow Facial and Abby's Signature Glow Facial contain "glow".
+  // Older "Customized Facial" bookings map to its successor, The Essential Glow Facial.
   const nameLower = eventTypeName.toLowerCase();
-  let slug = "customized-facial";
-  if (nameLower.includes("signature") || nameLower.includes("glow")) slug = "signature-glow-facial";
+  let slug = "the-essential-glow-facial";
+  if (nameLower.includes("essential")) slug = "the-essential-glow-facial";
+  else if (nameLower.includes("signature") || nameLower.includes("glow")) slug = "signature-glow-facial";
   else if (nameLower.includes("ultimate") || nameLower.includes("renewal")) slug = "ultimate-renewal-facial";
   else if (nameLower.includes("acne") || nameLower.includes("clarifying")) slug = "clarifying-acne-facial";
 

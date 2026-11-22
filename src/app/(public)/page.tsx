@@ -72,6 +72,24 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-px bg-outline-variant/20">
             {/* Service 1 */}
+            <a href="/book?service=the-essential-glow-facial" className="bg-surface p-8 md:p-10 flex flex-col justify-between md:aspect-[3/4] hover:bg-surface-container-low transition-colors duration-500 group">
+              <div>
+                <span className="font-label text-[10px] text-primary tracking-widest uppercase">
+                  60 min / $100
+                </span>
+                <h3 className="font-headline text-2xl md:text-3xl mt-4 md:mt-6 group-hover:italic transition-all">
+                  The Essential Glow Facial
+                </h3>
+                <p className="font-body text-sm text-on-surface-variant mt-3 md:mt-4 leading-relaxed font-light">
+                  Cleanse, exfoliate, extract, mask, hydrate. Everything your
+                  skin needs in an hour.
+                </p>
+              </div>
+              <svg className="w-8 h-8 mt-6 text-outline-variant group-hover:text-primary transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
+                <path d="M7 17L17 7M17 7H7M17 7V17" />
+              </svg>
+            </a>
+            {/* Service 2 */}
             <a href="/book?service=abby-s-signature-glow-facial" className="bg-surface p-8 md:p-10 flex flex-col justify-between md:aspect-[3/4] hover:bg-surface-container-low transition-colors duration-500 group">
               <div>
                 <span className="font-label text-[10px] text-primary tracking-widest uppercase">
@@ -89,7 +107,7 @@ export default function Home() {
                 <path d="M7 17L17 7M17 7H7M17 7V17" />
               </svg>
             </a>
-            {/* Service 2 */}
+            {/* Service 3 */}
             <a href="/book?service=ultimate-renewal-facial" className="bg-surface p-8 md:p-10 flex flex-col justify-between md:aspect-[3/4] hover:bg-surface-container-low transition-colors duration-500 group">
               <div>
                 <span className="font-label text-[10px] text-primary tracking-widest uppercase">
@@ -107,7 +125,7 @@ export default function Home() {
                 <path d="M7 17L17 7M17 7H7M17 7V17" />
               </svg>
             </a>
-            {/* Service 3 */}
+            {/* Service 4 */}
             <a href="/book?service=clarifying-acne-facial" className="bg-surface p-8 md:p-10 flex flex-col justify-between md:aspect-[3/4] hover:bg-surface-container-low transition-colors duration-500 group">
               <div>
                 <span className="font-label text-[10px] text-primary tracking-widest uppercase">
@@ -119,24 +137,6 @@ export default function Home() {
                 <p className="font-body text-sm text-on-surface-variant mt-3 md:mt-4 leading-relaxed font-light">
                   Calm inflammation and clear congestion with targeted
                   medical-grade products.
-                </p>
-              </div>
-              <svg className="w-8 h-8 mt-6 text-outline-variant group-hover:text-primary transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
-                <path d="M7 17L17 7M17 7H7M17 7V17" />
-              </svg>
-            </a>
-            {/* Service 4 */}
-            <a href="/book?service=customized-facial" className="bg-surface p-8 md:p-10 flex flex-col justify-between md:aspect-[3/4] hover:bg-surface-container-low transition-colors duration-500 group">
-              <div>
-                <span className="font-label text-[10px] text-primary tracking-widest uppercase">
-                  60 min / From $100
-                </span>
-                <h3 className="font-headline text-2xl md:text-3xl mt-4 md:mt-6 group-hover:italic transition-all">
-                  Customized Facial
-                </h3>
-                <p className="font-body text-sm text-on-surface-variant mt-3 md:mt-4 leading-relaxed font-light">
-                  Completely personalized to your immediate skin concerns and
-                  long-term goals.
                 </p>
               </div>
               <svg className="w-8 h-8 mt-6 text-outline-variant group-hover:text-primary transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
